@@ -1,0 +1,16 @@
+ .navbarClass {
+     @apply text-[20px] sm:text-[25px] xl:text-[30px] font-semibold bg-blue-500 text-center flex justify-center items-center gap-4 p-2
+ }
+
+ .Formmain {
+     @apply p-3 border border-slate-400 bg-slate-200;
+     box-shadow: 2px 2px 10px black, -2px -2px 10px black;
+ }
+
+ form input {
+     @apply outline-none border border-black mt-4 p-2 rounded-lg
+ }
+
+ form button {
+     @apply p-2 mt-3 rounded-md;
+ }

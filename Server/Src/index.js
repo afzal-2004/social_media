@@ -11,7 +11,7 @@ dotenv.config({
 const port = 3000;
 import dataRouter from "./Routes/index.js";
 
-app.use("/data", dataRouter);
+app.use("/memories", dataRouter);
 ConnectDb()
   .then(() => {
     app.listen(port, () => {

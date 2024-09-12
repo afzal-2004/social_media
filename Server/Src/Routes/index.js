@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { accessitems } from "../Controller/upload.Controller.js";
+import { accessitems, Senddata } from "../Controller/upload.Controller.js";
 const router = Router();
-router.route("/accessdata", accessitems);
+router.post("/accessdata", accessitems);
+router.post("/senddata", Senddata);
+
 export default router;
