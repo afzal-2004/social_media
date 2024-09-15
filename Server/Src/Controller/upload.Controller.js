@@ -7,21 +7,23 @@ const accessitems = async (req, res) => {
 };
 const Senddata = async (req, res) => {
   const { Creator, Title, Message, tags, Filepath } = req.body;
+  console.log(Creator, Title, Message, tags, Filepath);
 
-  const avtar = uploadimage(Filepath);
+  const Avtar = await uploadimage(Filepath);
+  console.log(Avtar);
   const newdata = await post({
     Creator,
     Title,
     Message,
     tags,
-    Filepath: avtar,
+    avtar: Avtar,
   });
 
   const Data = await newdata.save();
 
   res.status(200).json({
     success: true,
-    Data,
+    newdata,
   });
 };
 export { accessitems, Senddata };

@@ -20,7 +20,7 @@ const PostSchema = new Schema(
       type: String,
       lowercase: true,
     },
-    Filepath: {
+    avtar: {
       type: String,
       required: true,
     },

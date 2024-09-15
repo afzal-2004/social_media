@@ -8,6 +8,13 @@ export const Form = () => {
     tags: "",
     Filepath: "",
   });
+
+  // const handleFileChange = (e) => {
+  //   setdata((prevData) => ({
+  //     ...prevData,
+  //     Filepath: e.target.files[0],
+  //   }));
+  // };
   const handleData = (e) => {
     setdata({
       ...data,
@@ -85,12 +92,7 @@ export const Form = () => {
           name="tags"
           onChange={handleData}
         />
-        <input
-          type="file"
-          value={data.Filepath}
-          name="Filepath"
-          onChange={handleData}
-        />
+        <input type="file" name="Filepath" onChange={handleData} />
         <button type="sumbit" className=" bg-blue-400  ">
           Sumbit
         </button>
