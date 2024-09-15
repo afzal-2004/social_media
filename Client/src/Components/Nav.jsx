@@ -4,7 +4,7 @@ export const Nav = () => {
     <>
       <div className="navbarClass ">
         <img
-          src="/public/photographs-256888_640.jpg"
+          src="/photographs-256888_640.jpg"
           alt=""
           className=" max-w-[100px] rounded-md "
         />

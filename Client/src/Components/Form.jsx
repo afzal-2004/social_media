@@ -9,7 +9,6 @@ export const Form = () => {
     Filepath: "",
   });
   const handleData = (e) => {
-    e.preventDefault();
     setdata({
       ...data,
       [e.target.name]: e.target.value,
@@ -20,9 +19,22 @@ export const Form = () => {
     console.log(data);
     try {
       axios
-        .post("http://localhost:3000/memories/senddata")
+        .post("http://localhost:3000/memories/senddata", {
+          Creator: data.Creator,
+          Title: data.Title,
+          Message: data.Message,
+          tags: data.tags,
+          Filepath: data.Filepath,
+        })
         .then((res) => console.log(res.data))
-        .catch((err) => console.log(err.Message));
+        .catch((err) => console.log(err.message));
+      setdata({
+        Creator: "",
+        Title: "",
+        Message: "",
+        tags: "",
+        Filepath: "",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +51,11 @@ export const Form = () => {
   return (
     <div className=" Formmain rounded-lg ">
       <h1>Creating An memory</h1>
-      <form action="Sumbit" className=" flex flex-col ">
+      <form
+        action="Sumbit"
+        onSubmit={handleSendData}
+        className=" flex flex-col "
+      >
         <input
           type="text "
           placeholder="Creator"
@@ -75,7 +91,7 @@ export const Form = () => {
           name="Filepath"
           onChange={handleData}
         />
-        <button className=" bg-blue-400  " onClick={handleSendData}>
+        <button type="sumbit" className=" bg-blue-400  ">
           Sumbit
         </button>
         <button className=" bg-red-500 " onClick={clearData}>
