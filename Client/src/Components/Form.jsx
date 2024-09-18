@@ -6,15 +6,11 @@ export const Form = () => {
     Title: "",
     Message: "",
     tags: "",
-    Filepath: "",
   });
-
-  // const handleFileChange = (e) => {
-  //   setdata((prevData) => ({
-  //     ...prevData,
-  //     Filepath: e.target.files[0],
-  //   }));
-  // };
+  const [File, setFile] = useState(null);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
   const handleData = (e) => {
     setdata({
       ...data,
@@ -24,15 +20,16 @@ export const Form = () => {
   const handleSendData = (e) => {
     e.preventDefault();
     console.log(data);
+    console.log(File);
+    const formdata = new FormData();
+    formdata.append("File", File);
+    formdata.append("Creator", data.Creator);
+    formdata.append("Title", data.Title);
+    formdata.append("Message", data.Message);
+    formdata.append("tags", data.tags);
     try {
       axios
-        .post("http://localhost:3000/memories/senddata", {
-          Creator: data.Creator,
-          Title: data.Title,
-          Message: data.Message,
-          tags: data.tags,
-          Filepath: data.Filepath,
-        })
+        .post("http://localhost:3000/memories/senddata", formdata)
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.message));
       setdata({
@@ -92,7 +89,7 @@ export const Form = () => {
           name="tags"
           onChange={handleData}
         />
-        <input type="file" name="Filepath" onChange={handleData} />
+        <input type="file" name="Filepath" onChange={handleFileChange} />
         <button type="sumbit" className=" bg-blue-400  ">
           Sumbit
         </button>

@@ -1,22 +1,27 @@
 import { v2 as cloudinary } from "cloudinary";
-
+import { response } from "express";
+import fs from "fs";
 cloudinary.config({
-  cloud_name: process.env.CLOUDNIARY_NAME,
-  api_key: process.env.CLODNIARY_API_KEY,
-  api_secret: process.env.CLODNIARY_API_SECRET,
+  cloud_name: "ddh00pzvb",
+  api_key: "576911946581531",
+  api_secret: "cjiKtB1gdNom1tvrBkiB-I5DUNA",
 });
 
-async function uploadimage(filePath) {
+const uploadImage = async (localFilePath) => {
   try {
-    const uploadResult = await cloudinary.uploader.upload(filePath, {
-      public_id: "file",
+    if (!localFilePath) return null;
+    const uploadResult = await cloudinary.uploader.upload(localFilePath, {
+      resource_type: "auto",
     });
+    fs.unlinkSync(localFilePath);
+    console.log(uploadImage);
 
-    console.log(uploadResult);
-    return uploadResult.secure_url;
+    return uploadImage;
   } catch (error) {
+    fs.unlinkSync(localFilePath);
     console.log("Error Uploading images :", error);
+    return null;
   }
-}
+};
 
-export { uploadimage };
+export { uploadImage };
