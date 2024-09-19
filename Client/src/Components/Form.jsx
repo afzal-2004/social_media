@@ -37,8 +37,8 @@ export const Form = () => {
         Title: "",
         Message: "",
         tags: "",
-        Filepath: "",
       });
+      setFile("");
     } catch (error) {
       console.log(error);
     }
