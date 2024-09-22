@@ -2,40 +2,37 @@
 import { SlLike, SlDislike } from "react-icons/sl";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
 // import { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { Appcontext } from "../Context/Appcontext";
 export const Card = ({ Data }) => {
-  //   const [Cardid, setCardid] = useState(null);
+  const { setCardid } = useContext(Appcontext);
   const handelDeleteCard = (id) => {
     axios
       .delete(`http://localhost:3000/memories/Deletecard/` + id)
       .then((res) => {
         console.log(res);
         console.log(res.data);
+        toast.success("Succefully Deleted Your Data  ");
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Something Went Wrong");
       });
   };
 
   return (
     <>
-      <div
-        className=" border border-slate-400  rounded-xl 
-       sm:w-[300px]   w-full h-[400px] flex flex-col  items-center sm:gap-4 bg-blue-300 relative  "
-      >
-        <img
-          src={Data.avtar}
-          alt=""
-          className="  w-[300px] h-[50%]
-             object-fill  border-2 border-black rounded-xl"
-        />
-        <FaEdit className="absolute top-2 left-2 text-[20px] text-green-400" />
+      <div className=" cardContainer  ">
+        <img src={Data.avtar} alt="" className=" imageData" />
+        <FaEdit className="Editbtn left-2  text-green-400" />
         <MdDelete
-          className="absolute top-2 right-2 text-[20px] text-red-600"
+          className="Editbtn right-2  text-red-600 "
           onClick={() => {
             console.log(Data._id);
-            // setCardid(Data._id);
+            setCardid(Data._id);
             handelDeleteCard(Data._id);
           }}
         />

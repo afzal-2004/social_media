@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 export const Form = () => {
   const [data, setdata] = useState({
     Creator: "",
@@ -8,6 +9,7 @@ export const Form = () => {
     tags: "",
   });
   const [File, setFile] = useState(null);
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -38,9 +40,11 @@ export const Form = () => {
         Message: "",
         tags: "",
       });
-      setFile("");
+      setFile(null);
+      toast.success("  Succefully Post Your Data  ");
     } catch (error) {
       console.log(error);
+      toast.error("All Field Are  Required");
     }
   };
   const clearData = () => {
@@ -49,12 +53,14 @@ export const Form = () => {
       Title: "",
       Message: "",
       tags: "",
-      Filepath: "",
+      File: null,
     });
   };
   return (
     <div className=" Formmain rounded-lg ">
-      <h1>Creating An memory</h1>
+      <h1 className="text-[20px]  text-center font-semibold">
+        Creating An memory
+      </h1>
       <form
         action="Sumbit"
         onSubmit={handleSendData}
