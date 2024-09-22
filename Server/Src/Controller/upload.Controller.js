@@ -5,11 +5,7 @@ const accessitems = async (req, res) => {
   try {
     post.find({}).then(function (data) {
       res.json(data);
-      console.log(data);
     });
-    // res.status(200).json({
-    //   message: 'TestController',
-    // });
   } catch (error) {
     console.log(error);
     return res.status(401).json({
@@ -29,17 +25,7 @@ const Senddata = async (req, res) => {
   // Access the uploaded file
   const File = req.file;
   const Clodniary = await uploadImage(File.path);
-  // console.log('Cloudniary', Clodniary);
-  console.log('Cloudniary Url :', Clodniary.url);
-  // const newdata = { Creator, Title, Message, tags, Clodniary };
-  console.log('Form Data:');
-  console.log({
-    Creator,
-    Title,
-    Message,
-    tags,
-    file: File ? File.path : null,
-  });
+
   const newdata = new post({
     Creator,
     Title,
@@ -55,4 +41,22 @@ const Senddata = async (req, res) => {
     Data,
   });
 };
-export { accessitems, Senddata };
+const Deletecard = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(' id is this Send From  frountend', id);
+    const DeletedContact = await post.findByIdAndDelete({ _id: id });
+    if (!DeletedContact) {
+      return res.status(401).json({
+        message: 'Something Went Wrong',
+        details: error.message,
+      });
+    }
+  } catch (error) {
+    return res.status(401).json({
+      message: 'Something Went Wrong ',
+      error: error,
+    });
+  }
+};
+export { accessitems, Senddata, Deletecard };

@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { accessitems, Senddata } from '../Controller/upload.Controller.js';
+import {
+  accessitems,
+  Senddata,
+  Deletecard,
+} from '../Controller/upload.Controller.js';
 import { upload } from '../Middleware/Mullter.js';
 const router = Router();
 router.get('/accessdata', accessitems);
@@ -10,5 +14,6 @@ router.post(
 
   Senddata
 );
+router.delete('/Deletecard/:id', Deletecard);
 
 export default router;
