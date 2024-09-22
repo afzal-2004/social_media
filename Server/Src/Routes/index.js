@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { accessitems, Senddata } from "../Controller/upload.Controller.js";
-import { upload } from "../Middleware/Mullter.js";
+import { Router } from 'express';
+import { accessitems, Senddata } from '../Controller/upload.Controller.js';
+import { upload } from '../Middleware/Mullter.js';
 const router = Router();
-router.post("/accessdata", accessitems);
+router.get('/accessdata', accessitems);
 router.post(
-  "/senddata",
+  '/senddata',
 
-  upload.single("File"),
+  upload.single('File'),
 
   Senddata
 );

@@ -2,10 +2,27 @@ import { post } from '../Models/post.model.js';
 import { uploadImage } from '../utils/Cloudniary.js';
 
 const accessitems = async (req, res) => {
-  res.status(200).json({
-    message: 'TestController',
-  });
+  try {
+    post.find({}).then(function (data) {
+      res.json(data);
+      console.log(data);
+    });
+    // res.status(200).json({
+    //   message: 'TestController',
+    // });
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      error: 'Something Went Wrong',
+      details: error.message,
+    });
+  }
+
+  // res.status(200).json({
+  //   message: 'TestController',
+  // });
 };
+
 const Senddata = async (req, res) => {
   const { Creator, Title, Message, tags } = req.body;
 
