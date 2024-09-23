@@ -3,7 +3,7 @@ import { uploadImage } from '../utils/Cloudniary.js';
 
 const accessitems = async (req, res) => {
   try {
-    post.find({}).then(function (data) {
+    post.find({}).then((data) => {
       res.json(data);
     });
   } catch (error) {
@@ -13,16 +13,11 @@ const accessitems = async (req, res) => {
       details: error.message,
     });
   }
-
-  // res.status(200).json({
-  //   message: 'TestController',
-  // });
 };
 
 const Senddata = async (req, res) => {
   const { Creator, Title, Message, tags } = req.body;
 
-  // Access the uploaded file
   const File = req.file;
   const Clodniary = await uploadImage(File.path);
 
