@@ -20,7 +20,7 @@
  }
 
  .cardContainer {
-     @apply border border-slate-400 rounded-xl sm:w-[300px] w-full h-[400px] flex flex-col items-center sm:gap-4 bg-blue-300 relative;
+     @apply border border-slate-400 rounded-xl sm:w-[300px] w-full min-h-[400px] flex flex-col items-center sm:gap-4 bg-blue-300 relative;
  }
 
  .Editbtn {

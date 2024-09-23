@@ -8,7 +8,8 @@ import axios from "axios";
 import { useContext } from "react";
 import { Appcontext } from "../Context/Appcontext";
 export const Card = ({ Data }) => {
-  const { setCardid } = useContext(Appcontext);
+  const { setCardid, setupdate, handelUpdatedata } = useContext(Appcontext);
+
   const handelDeleteCard = (id) => {
     axios
       .delete(`http://localhost:3000/memories/Deletecard/` + id)
@@ -27,12 +28,18 @@ export const Card = ({ Data }) => {
     <>
       <div className=" cardContainer  ">
         <img src={Data.avtar} alt="" className=" imageData" />
-        <FaEdit className="Editbtn left-2  text-green-400" />
+        <FaEdit
+          className="Editbtn left-2  text-green-400"
+          onClick={() => {
+            console.log("Id Of This Card is ", Data._id);
+            setCardid(Data._id);
+            setupdate(true);
+            handelUpdatedata(Data._id);
+          }}
+        />
         <MdDelete
           className="Editbtn right-2  text-red-600 "
           onClick={() => {
-            console.log(Data._id);
-            setCardid(Data._id);
             handelDeleteCard(Data._id);
           }}
         />

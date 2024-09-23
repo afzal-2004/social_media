@@ -59,4 +59,39 @@ const Deletecard = async (req, res) => {
     });
   }
 };
-export { accessitems, Senddata, Deletecard };
+const Updatecard = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const UpdateData = req.body;
+    const UpdateUser = await post.findByIdAndUpdate(id, UpdateData, {
+      new: true,
+      runValidators: true,
+    });
+    console.log(UpdateUser);
+    return res.status(200).json({
+      message: 'Success',
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      message: 'SomeThing  Wrong ',
+      details: error.message,
+    });
+  }
+};
+
+const getUpdatedContact = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    const FindUser = await post.findById(id);
+    return res.json(FindUser);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      error: error.message,
+      message: 'Some Thing Went Wrong ... ',
+    });
+  }
+};
+export { accessitems, Senddata, Deletecard, Updatecard, getUpdatedContact };

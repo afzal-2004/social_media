@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Appcontext } from "../Context/Appcontext";
+
 export const Form = () => {
-  const [data, setdata] = useState({
-    Creator: "",
-    Title: "",
-    Message: "",
-    tags: "",
-  });
-  const [File, setFile] = useState(null);
+  const { Cardid, update, data, setdata, File, setFile } =
+    useContext(Appcontext);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -29,22 +26,37 @@ export const Form = () => {
     formdata.append("Title", data.Title);
     formdata.append("Message", data.Message);
     formdata.append("tags", data.tags);
-    try {
-      axios
-        .post("http://localhost:3000/memories/senddata", formdata)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err.message));
-      setdata({
-        Creator: "",
-        Title: "",
-        Message: "",
-        tags: "",
-      });
-      setFile(null);
-      toast.success("  Succefully Post Your Data  ");
-    } catch (error) {
-      console.log(error);
-      toast.error("All Field Are  Required");
+
+    if (!update) {
+      try {
+        axios
+          .post("http://localhost:3000/memories/senddata", formdata)
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err.message));
+        setdata({
+          Creator: "",
+          Title: "",
+          Message: "",
+          tags: "",
+        });
+        setFile(null);
+        toast.success("  Succefully Post Your Data  ");
+      } catch (error) {
+        console.log(error);
+        toast.error("All Field Are  Required");
+      }
+    } else {
+      try {
+        axios
+          .put(`http://localhost:3000/memories/updatedata/` + Cardid, data)
+          .then((res) => {
+            console.log("My Updated data is ", res);
+            console.log(res.data);
+            toast.success("Data Updated Succefully ");
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   const clearData = () => {
@@ -59,7 +71,7 @@ export const Form = () => {
   return (
     <div className=" Formmain rounded-lg ">
       <h1 className="text-[20px]  text-center font-semibold">
-        Creating An memory
+        {update ? "Update" : "Creating"} memory
       </h1>
       <form
         action="Sumbit"
@@ -82,7 +94,7 @@ export const Form = () => {
         />
         <textarea
           className=" outline-none border border-black mt-4 p-2 rounded-lg "
-          maxLength={"100"}
+          maxLength={"300"}
           placeholder="Message"
           value={data.Message}
           name="Message"
@@ -97,7 +109,7 @@ export const Form = () => {
         />
         <input type="file" name="Filepath" onChange={handleFileChange} />
         <button type="sumbit" className=" bg-blue-400  ">
-          Sumbit
+          {update ? "Update" : "Post"}
         </button>
         <button className=" bg-red-500 " onClick={clearData}>
           Clear
