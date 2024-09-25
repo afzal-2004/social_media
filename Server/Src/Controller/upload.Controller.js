@@ -25,7 +25,7 @@ const Senddata = async (req, res) => {
     Creator,
     Title,
     Message,
-    tags,
+
     avtar: Clodniary.url || '',
   });
 
@@ -89,4 +89,34 @@ const getUpdatedContact = async (req, res) => {
     });
   }
 };
-export { accessitems, Senddata, Deletecard, Updatecard, getUpdatedContact };
+const LikePost = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { like } = req.body;
+    const Post = await post.findByIdAndUpdate(
+      id,
+      { $inc: { like: 1 } }, // Increment the like field by 1
+      { new: true, runValidators: true } // Return the updated document
+    );
+    if (!Post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    return res.status(200).json(Post);
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      message: 'SomeThing Went wrong',
+      details: error.details,
+    });
+  }
+};
+
+export {
+  accessitems,
+  Senddata,
+  Deletecard,
+  Updatecard,
+  getUpdatedContact,
+  LikePost,
+};

@@ -6,7 +6,7 @@ export const Home = () => {
   return (
     <>
       <Nav />
-      <div className=" sm:flex  gap-3 w-full border border-red-500 p-4">
+      <div className=" sm:flex  gap-3 w-full p-4">
         <CardList />
         <Form />
       </div>

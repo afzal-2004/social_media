@@ -16,7 +16,7 @@
  }
 
  .imageData {
-     @apply w-[300px] h-[50%] object-fill border-2 border-black rounded-xl
+     @apply w-[300px] max-h-[50%] object-fill border-2 border-black rounded-xl
  }
 
  .cardContainer {
@@ -24,5 +24,10 @@
  }
 
  .Editbtn {
-     @apply absolute top-2 text-[20px]
+     @apply absolute top-2 text-[30px]
+ }
+
+ .OverLap {
+     @apply absolute w-full border border-red-500 top-0 max-h-[50%] opacity-60 min-h-[42%] rounded-xl;
+     background: linear-gradient(to bottom, black, white, black);
  }

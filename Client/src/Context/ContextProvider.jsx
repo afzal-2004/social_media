@@ -31,7 +31,6 @@ export const ContextProvider = ({ children }) => {
       });
   };
 
-  console.log("id Of the Card is For Updation", Cardid);
   const value = {
     Cardid,
     setCardid,

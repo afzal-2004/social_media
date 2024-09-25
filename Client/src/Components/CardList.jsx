@@ -5,7 +5,6 @@ import { Card } from "./Card";
 
 export const CardList = () => {
   const [data, setdata] = useState([]);
-  console.log("data From backend ", data);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/memories/accessdata`).then((res) => {

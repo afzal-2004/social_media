@@ -13,4 +13,5 @@ body {
   font-family: "Lato", system-ui;
   font-weight: 600;
   font-style: normal;
+  background-image: url('/Background.svg');
 }

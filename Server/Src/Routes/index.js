@@ -5,6 +5,7 @@ import {
   Deletecard,
   Updatecard,
   getUpdatedContact,
+  LikePost,
 } from '../Controller/upload.Controller.js';
 import { upload } from '../Middleware/Mullter.js'; //  this is multer middleware for
 const router = Router();
@@ -12,7 +13,10 @@ router.get('/accessdata', accessitems);
 router.post('/senddata', upload.single('File'), Senddata);
 router.delete('/Deletecard/:id', Deletecard);
 router.put('/updatedata/:id', Updatecard);
+// THIS ROUTE FOR GIVE CURRENT  DATA  TO BACKEND TO ACCESS MY DATA  IN FORM FOR UPDATED
 router.get('/getupdateContact/:id', getUpdatedContact);
+
+router.put('/getLikeCount/:id', LikePost);
 
 export default router;
 

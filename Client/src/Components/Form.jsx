@@ -16,7 +16,7 @@ export const Form = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleSendData = (e) => {
+  const handleSendData = async (e) => {
     e.preventDefault();
     console.log(data);
     console.log(File);
@@ -29,7 +29,7 @@ export const Form = () => {
 
     if (!update) {
       try {
-        axios
+        await axios
           .post("http://localhost:3000/memories/senddata", formdata)
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err.message));
@@ -47,7 +47,7 @@ export const Form = () => {
       }
     } else {
       try {
-        axios
+        await axios
           .put(`http://localhost:3000/memories/updatedata/` + Cardid, data)
           .then((res) => {
             console.log("My Updated data is ", res);
@@ -100,13 +100,7 @@ export const Form = () => {
           name="Message"
           onChange={handleData}
         />
-        <input
-          type="text "
-          placeholder="tags"
-          value={data.tags}
-          name="tags"
-          onChange={handleData}
-        />
+
         <input type="file" name="Filepath" onChange={handleFileChange} />
         <button type="sumbit" className=" bg-blue-400  ">
           {update ? "Update" : "Post"}

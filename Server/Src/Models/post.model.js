@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from 'mongoose';
 const PostSchema = new Schema(
   {
     Creator: {
@@ -14,19 +14,19 @@ const PostSchema = new Schema(
     },
     Message: {
       type: String,
-      lowercase: true,
     },
-    tags: {
-      type: String,
-      lowercase: true,
-    },
+
     avtar: {
       type: String,
       required: true,
+    },
+    like: {
+      type: Number,
+      default: 0,
     },
   },
   {
     timestamps: true,
   }
 );
-export const post = model("post", PostSchema);
+export const post = model('post', PostSchema);

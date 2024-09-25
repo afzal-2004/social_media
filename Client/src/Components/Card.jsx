@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import { SlLike, SlDislike } from "react-icons/sl";
-import { FaEdit } from "react-icons/fa";
+import { SlLike } from "react-icons/sl";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
-// import { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { Appcontext } from "../Context/Appcontext";
 export const Card = ({ Data }) => {
   const { setCardid, setupdate, handelUpdatedata } = useContext(Appcontext);
+  const [Like, setLike] = useState(Data.like);
 
   const handelDeleteCard = (id) => {
     axios
@@ -23,13 +24,33 @@ export const Card = ({ Data }) => {
         toast.error("Something Went Wrong");
       });
   };
+  const handleLike = async (id) => {
+    try {
+      await axios
+        .put("http://localhost:3000/memories/getLikeCount/" + id, Like)
+        .then((res) => {
+          console.log(res);
+          console.log("Data For like Count ", res.data);
+          console.log("Like for my  Pariculer Post ", res.data.like);
+          setLike(res.data.like);
+          toast.success("You Liked  Post ");
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong ");
+    }
+  };
 
   return (
     <>
       <div className=" cardContainer  ">
         <img src={Data.avtar} alt="" className=" imageData" />
-        <FaEdit
-          className="Editbtn left-2  text-green-400"
+        <span className=" OverLap ">A</span>
+        <p className=" uppercase absolute top-2  left-2 text-white">
+          {Data.Creator}
+        </p>
+        <HiOutlineDotsHorizontal
+          className="Editbtn right-2  text-white"
           onClick={() => {
             console.log("Id Of This Card is ", Data._id);
             setCardid(Data._id);
@@ -37,14 +58,11 @@ export const Card = ({ Data }) => {
             handelUpdatedata(Data._id);
           }}
         />
-        <MdDelete
-          className="Editbtn right-2  text-red-600 "
-          onClick={() => {
-            handelDeleteCard(Data._id);
-          }}
-        />
+
         <div className="  p-2  rounded-xl h-[50%]">
-          <span className=" text-black font-bold  uppercase">{Data.Title}</span>
+          <span className=" text-black font-bold  uppercase text-[22px]">
+            {Data.Title}
+          </span>
           <p
             className="text-slate-500 text-[15px] 
               sm:text-[18px] "
@@ -53,13 +71,21 @@ export const Card = ({ Data }) => {
           </p>
           <div className="flex justify-between mt-4">
             <p className="flex gap-3  items-center">
-              <SlLike />
-              {0}
+              <SlLike
+                onClick={() => {
+                  handleLike(Data._id);
+                  setLike(Like + 1);
+                }}
+              />
+              {Like}
             </p>
-            <p className="flex gap-3  items-center">
-              <SlDislike />
-              {0}
-            </p>
+
+            <MdDelete
+              className=" right-2  text-[30px] text-red-600 "
+              onClick={() => {
+                handelDeleteCard(Data._id);
+              }}
+            />
           </div>
         </div>
       </div>
