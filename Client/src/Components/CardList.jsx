@@ -7,10 +7,15 @@ export const CardList = () => {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/memories/accessdata`).then((res) => {
-      console.log(res.data);
-      setdata(res.data);
-    });
+    axios
+      .get(`http://localhost:3000/memories/accessdata`)
+      .then((res) => {
+        console.log(res.data);
+        setdata(res.data);
+      })
+      .catch((err) => {
+        console.log("My error is ", err);
+      });
   }, []);
 
   return (
