@@ -15,7 +15,9 @@ export const Nav = () => {
             alt=""
             className=" max-w-[100px] rounded-md "
           />
-          <h1> Hello Memories</h1>
+          <Link to="/">
+            <h1> Hello Memories</h1>
+          </Link>
         </div>
         {SignUp ? (
           <Link to={"/signUp"}>

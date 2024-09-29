@@ -18,7 +18,7 @@ router.put('/updatedata/:id', Updatecard);
 // THIS ROUTE FOR GIVE CURRENT  DATA  TO BACKEND TO ACCESS MY DATA  IN FORM FOR UPDATED
 router.get('/getupdateContact/:id', getUpdatedContact);
 router.put('/getLikeCount/:id', LikePost);
-router.get('/SignUp', SignUpUser);
+router.post('/SignUp', SignUpUser);
 router.get('/SignIn', SignUpUser);
 export default router;
 

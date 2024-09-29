@@ -1,7 +1,44 @@
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useState } from "react";
+const BackendUrl = "http://localhost:3000";
 export const SignUp = () => {
-  const handleData = () => {};
+  const [data, setdata] = useState({
+    first: "",
+    last: "",
+    email: "",
+    Password: "",
+    ConfirmPassword: "",
+  });
+
+  const HandleChange = (e) => {
+    e.preventDefault();
+
+    setdata({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleData = (e) => {
+    e.preventDefault();
+    console.log(data);
+    axios
+      .post(`${BackendUrl}/memories/SignUp`, data)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setdata({
+            first: "",
+            last: "",
+            email: "",
+            Password: "",
+            ConfirmPassword: "",
+          });
+        }
+        console.log("Status is ", res.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <main className=" h-[100vh] flex justify-center items-center">
@@ -22,29 +59,44 @@ export const SignUp = () => {
             <div className=" mt-3  sm:flex    justify-between">
               <input
                 type="text"
+                name="first"
+                value={data.first}
                 placeholder="First Name"
                 className=" signUpInput sm:w-[170px] "
+                onChange={HandleChange}
               />
               <input
                 type="text"
+                name="last"
+                value={data.last}
                 placeholder="Last Name"
                 className=" signUpInput sm:w-[170px] "
+                onChange={HandleChange}
               />
             </div>
             <input
               type="email"
+              name="email"
+              value={data.email}
               placeholder="Email"
               className=" signUpInput   mt-5  "
+              onChange={HandleChange}
             />
             <input
               type="Password"
+              name="Password"
+              value={data.Password}
               placeholder="Password"
               className="signUpInput  mt-5  "
+              onChange={HandleChange}
             />
             <input
-              type=" Password"
+              type="Password"
+              name="ConfirmPassword"
+              value={data.ConfirmPassword}
               placeholder="Repeat Password"
               className=" signUpInput  mt-5  "
+              onChange={HandleChange}
             />
             <button className=" bg-blue-500 text-white p-3 w-full mt-5">
               Sign Up
@@ -63,7 +115,24 @@ export const SignUp = () => {
 };
 
 export const SingIn = () => {
-  const handleData = () => {};
+  const [data, setdata] = useState({
+    email: "",
+    Password: "",
+  });
+  const handelChange = (e) => {
+    e.preventDefault();
+    setdata({ ...data, [e.target.name]: e.target.value });
+    axios
+      .post(`${BackendUrl}/memories/SignUp`, data)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleData = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
   return (
     <>
       <main className=" h-[100vh] flex justify-center items-center">
@@ -84,11 +153,15 @@ export const SingIn = () => {
             <input
               type="email"
               placeholder="Email"
+              name="email"
+              onChange={handelChange}
               className=" signUpInput   mt-5  "
             />
             <input
               type="Password"
               placeholder="Password"
+              name="Password"
+              onChange={handelChange}
               className="signUpInput  mt-5  "
             />
 

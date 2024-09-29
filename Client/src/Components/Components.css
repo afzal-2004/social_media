@@ -33,7 +33,7 @@
  }
 
  .SignInAndSignUpbtn {
-     @apply bg-red-500 text-white rounded-md py-2 px-3
+     @apply bg-red-500 text-white rounded-md py-1 px-2 text-[20px]
  }
 
  .signUpInput {

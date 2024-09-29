@@ -24,6 +24,10 @@ const PostSchema = new Schema(
       type: Number,
       default: 0,
     },
+    provided_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
+    },
   },
   {
     timestamps: true,
