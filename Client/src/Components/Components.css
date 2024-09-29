@@ -1,5 +1,5 @@
  .navbarClass {
-     @apply text-[20px] sm:text-[25px] xl:text-[30px] font-semibold bg-blue-500 text-center flex justify-center items-center gap-4 p-2
+     @apply text-[20px] sm:text-[25px] xl:text-[30px] font-semibold bg-blue-500 text-center flex justify-between items-center gap-4 p-2
  }
 
  .Formmain {
@@ -30,4 +30,12 @@
  .OverLap {
      @apply absolute w-full border border-red-500 top-0 max-h-[50%] opacity-60 min-h-[42%] rounded-xl;
      background: linear-gradient(to bottom, black, white, black);
+ }
+
+ .SignInAndSignUpbtn {
+     @apply bg-red-500 text-white rounded-md py-2 px-3
+ }
+
+ .signUpInput {
+     @apply border border-black outline-none p-2 w-[98%]
  }

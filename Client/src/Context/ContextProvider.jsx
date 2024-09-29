@@ -3,6 +3,7 @@ import axios from "axios";
 import { Appcontext } from "./Appcontext";
 import { useState } from "react";
 export const ContextProvider = ({ children }) => {
+  const [SignUp, setSignUp] = useState(true);
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
@@ -41,6 +42,8 @@ export const ContextProvider = ({ children }) => {
     File,
     setFile,
     handelUpdatedata,
+    SignUp,
+    setSignUp,
   };
   return <Appcontext.Provider value={value}>{children}</Appcontext.Provider>;
 };
