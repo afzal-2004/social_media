@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
 const BackendUrl = "http://localhost:3000";
 export const SignUp = () => {
-  const navigate = Navigate();
+  const navigate = Navigate;
   const [data, setdata] = useState({
     first: "",
     last: "",
@@ -128,22 +128,22 @@ export const SignUp = () => {
 
 export const SingIn = () => {
   const [data, setdata] = useState({
-    email: "",
-    Password: "",
+    email: "moa44468@gmail.com",
+    Password: "12345678",
   });
   const handelChange = (e) => {
     e.preventDefault();
     setdata({ ...data, [e.target.name]: e.target.value });
-    axios
-      .post(`${BackendUrl}/memories/SignUp`, data)
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err);
-      });
   };
   const handleData = (e) => {
     e.preventDefault();
     console.log(data);
+    axios
+      .post(`${BackendUrl}/memories/SignIn`, data)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
@@ -166,6 +166,7 @@ export const SingIn = () => {
               type="email"
               placeholder="Email"
               name="email"
+              value={data.email}
               onChange={handelChange}
               className=" signUpInput   mt-5  "
             />
@@ -173,6 +174,7 @@ export const SingIn = () => {
               type="Password"
               placeholder="Password"
               name="Password"
+              value={data.Password}
               onChange={handelChange}
               className="signUpInput  mt-5  "
             />

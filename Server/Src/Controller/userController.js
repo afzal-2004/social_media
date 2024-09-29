@@ -44,8 +44,26 @@ const SignUpUser = async (req, res) => {
   }
 };
 const SignInUser = async (req, res) => {
-  return res.status(201).json({
-    message: 'All  Are okk  With My SignUp User controller ',
+  const { email, Password } = req.body;
+  console.log('email  and Password : ', email, Password);
+  try {
+    const Userexecited = await user.findOne({ email });
+    if (!Userexecited) {
+      return res.status(404).json({
+        message: 'User  is Not exesited',
+      });
+    } else {
+      const isPasswordvalid = await bycrpt.compare(Password, user.password);
+      if (!isPasswordvalid) {
+        return res.status(402).json({
+          message: 'Incorrect password !!',
+        });
+      }
+    }
+  } catch (error) {}
+  return res.status(400).json({
+    message: 'SomeThing Went wrong ',
+    details: error.details,
   });
 };
 export { SignUpUser, SignInUser };

@@ -19,7 +19,7 @@ router.put('/updatedata/:id', Updatecard);
 router.get('/getupdateContact/:id', getUpdatedContact);
 router.put('/getLikeCount/:id', LikePost);
 router.post('/SignUp', SignUpUser);
-router.get('/SignIn', SignUpUser);
+router.post('/SignIn', SignInUser);
 export default router;
 
 // file or any type of video uploadin in backend is  persfroms in these steps
