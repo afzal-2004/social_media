@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 const BackendUrl = "http://localhost:3000";
 export const SignUp = () => {
+  const navigate = Navigate();
   const [data, setdata] = useState({
     first: "",
     last: "",
@@ -31,11 +34,20 @@ export const SignUp = () => {
             Password: "",
             ConfirmPassword: "",
           });
+          toast.success("Register Succefully", {
+            autoClose: 2000,
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
         }
         console.log("Status is ", res.status);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Somethiing Went Wrong", {
+          autoClose: 2000,
+        });
       });
   };
 
