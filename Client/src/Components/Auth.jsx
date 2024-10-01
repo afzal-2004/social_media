@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const BackendUrl = "http://localhost:3000";
 export const SignUp = () => {
-  const navigate = Navigate;
+  const navigate = useNavigate();
   const [data, setdata] = useState({
     first: "",
     last: "",
@@ -26,7 +26,12 @@ export const SignUp = () => {
       .post(`${BackendUrl}/memories/SignUp`, data)
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        if (res.status === 201) {
+          localStorage.setItem("Token", res.data.token);
+          console.log(
+            "Token Genrated  From the Backend Side is ",
+            res.data.token
+          );
           setdata({
             first: "",
             last: "",
@@ -38,14 +43,15 @@ export const SignUp = () => {
             autoClose: 2000,
           });
           setTimeout(() => {
-            navigate("/login");
+            navigate("/signIn");
           }, 3000);
         }
         console.log("Status is ", res.status);
       })
       .catch((err) => {
-        console.log(err);
-        toast.error("Somethiing Went Wrong", {
+        console.log("Backend Error is ", err.response);
+
+        toast.error(`${err.response.data?.message}`, {
           autoClose: 2000,
         });
       });
@@ -127,9 +133,10 @@ export const SignUp = () => {
 };
 
 export const SingIn = () => {
+  const navigate = useNavigate();
   const [data, setdata] = useState({
-    email: "moa44468@gmail.com",
-    Password: "12345678",
+    email: "",
+    Password: "",
   });
   const handelChange = (e) => {
     e.preventDefault();
@@ -140,7 +147,18 @@ export const SingIn = () => {
     console.log(data);
     axios
       .post(`${BackendUrl}/memories/SignIn`, data)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+          localStorage.setItem("Token", res.data.token);
+          toast.success("Login", {
+            autoClose: 3000,
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }
+      })
       .catch((err) => {
         console.log(err);
       });

@@ -1,24 +1,24 @@
 import { user } from '../Models/user.model.js';
-import bycrpt from 'bcrypt';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: './.env',
+});
+
 const SignUpUser = async (req, res) => {
-  // const { first, last, email, Password, ConfirmPassword } = req.body;
-  // console.log('data Send By  User In backend is ', req.body);
+  const { first, last, email, Password, ConfirmPassword } = req.body;
 
   try {
     let userExexited = await user.findOne({ email });
-    // console.log('Check exestince of the user is ', userExexited);
-    console.log(
-      'Check that password is  same as Confirm Password',
-      Password === ConfirmPassword
-    );
-    if (Password != ConfirmPassword) {
-      return res.json(400).json({
-        message: ' Same as Password ',
+    const hasedPassword = await bycrpt.hash(Password, 10);
+
+    if (Password !== ConfirmPassword) {
+      return res.status(401).json({
+        message: 'Confirm Password  are Must be same ',
       });
     }
-
-    const hasedPassword = await bycrpt.hash(Password, 10);
-    // console.log(hasedPassword);
     if (!userExexited) {
       const User = new user({
         firstname: first,
@@ -26,13 +26,19 @@ const SignUpUser = async (req, res) => {
         email: email,
         password: hasedPassword,
       });
-      // console.log(' user is created inside db is ', User);
+      const token = jwt.sign(
+        { email: User.email, id: User._id },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: '3d' }
+      );
+
       const result = await User.save();
-      return res.status(200).json({
+      return res.status(201).json({
         message: result,
+        token: token,
       });
     } else {
-      return res.status(401).json({
+      return res.status(400).json({
         message: 'User is Already Execited',
       });
     }
@@ -43,27 +49,49 @@ const SignUpUser = async (req, res) => {
     });
   }
 };
+
 const SignInUser = async (req, res) => {
   const { email, Password } = req.body;
-  console.log('email  and Password : ', email, Password);
+  console.log('Email  and Password : ', email, Password);
+  // console.log('User Execited Position is ', Userexecited);
+
   try {
     const Userexecited = await user.findOne({ email });
+    console.log('User Entered Password From  Frountend ', Password);
+    console.log(
+      'User Execited  and Find In db Password is ',
+      Userexecited.password
+    );
+
     if (!Userexecited) {
       return res.status(404).json({
-        message: 'User  is Not exesited',
+        message: 'User does Not exesited',
       });
     } else {
-      const isPasswordvalid = await bycrpt.compare(Password, user.password);
+      console.log('This Is My Try Block');
+
+      const isPasswordvalid = bcrypt.compare(Password, Userexecited.password);
       if (!isPasswordvalid) {
         return res.status(402).json({
           message: 'Incorrect password !!',
         });
+      } else {
+        const token = jwt.sign(
+          { email: Userexecited.email, id: Userexecited._id },
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: '3d' }
+        );
+        return res.status(201).json({
+          message: Userexecited,
+          token,
+        });
       }
     }
-  } catch (error) {}
-  return res.status(400).json({
-    message: 'SomeThing Went wrong ',
-    details: error.details,
-  });
+  } catch (error) {
+    return res.status(400).json({
+      message: 'SomeThing Went wrong ',
+      details: error.message,
+    });
+  }
 };
 export { SignUpUser, SignInUser };
