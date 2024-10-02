@@ -12,7 +12,7 @@ const SignUpUser = async (req, res) => {
 
   try {
     let userExexited = await user.findOne({ email });
-    const hasedPassword = await bycrpt.hash(Password, 10);
+    const hasedPassword = await bcrypt.hash(Password, 10);
 
     if (Password !== ConfirmPassword) {
       return res.status(401).json({
