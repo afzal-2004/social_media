@@ -25,7 +25,7 @@ const Senddata = async (req, res) => {
     Creator,
     Title,
     Message,
-
+    provided_by,
     avtar: Clodniary.url || '',
   });
 
