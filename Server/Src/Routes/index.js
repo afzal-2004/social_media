@@ -8,13 +8,14 @@ import {
   LikePost,
 } from '../Controller/upload.Controller.js';
 import { SignUpUser, SignInUser } from '../Controller/userController.js';
+import { Auth } from '../Middleware/Auth.js';
 
 import { upload } from '../Middleware/Mullter.js';
 const router = Router();
-router.get('/accessdata', accessitems);
-router.post('/senddata', upload.single('File'), Senddata);
-router.delete('/Deletecard/:id', Deletecard);
-router.put('/updatedata/:id', Updatecard);
+router.get('/accessdata', Auth, accessitems);
+router.post('/senddata', Auth, upload.single('File'), Senddata);
+router.delete('/Deletecard/:id', Auth, Deletecard);
+router.put('/updatedata/:id', Auth, Updatecard);
 // THIS ROUTE FOR GIVE CURRENT  DATA  TO BACKEND TO ACCESS MY DATA  IN FORM FOR UPDATED
 router.get('/getupdateContact/:id', getUpdatedContact);
 router.put('/getLikeCount/:id', LikePost);

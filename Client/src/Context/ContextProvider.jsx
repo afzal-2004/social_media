@@ -7,11 +7,12 @@ export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
-    Creator: "",
-    Title: "",
-    Message: "",
-    tags: "",
+    Creator: "Afzal",
+    Title: "Go To mumbai",
+    Message:
+      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium",
   });
+
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {
     axios

@@ -27,7 +27,6 @@ export const SignUp = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
-          localStorage.setItem("Token", res.data.token);
           console.log(
             "Token Genrated  From the Backend Side is ",
             res.data.token
@@ -154,12 +153,18 @@ export const SingIn = () => {
           toast.success("Login", {
             autoClose: 3000,
           });
+          setdata({
+            email: "",
+            Password: "",
+          });
+
           setTimeout(() => {
             navigate("/");
           }, 2000);
         }
       })
       .catch((err) => {
+        toast.error(`${err.response.data?.message}`);
         console.log(err);
       });
   };

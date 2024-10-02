@@ -54,22 +54,14 @@ const SignInUser = async (req, res) => {
   const { email, Password } = req.body;
   console.log('Email  and Password : ', email, Password);
   // console.log('User Execited Position is ', Userexecited);
+  const Userexecited = await user.findOne({ email });
 
   try {
-    const Userexecited = await user.findOne({ email });
-    console.log('User Entered Password From  Frountend ', Password);
-    console.log(
-      'User Execited  and Find In db Password is ',
-      Userexecited.password
-    );
-
     if (!Userexecited) {
       return res.status(404).json({
         message: 'User does Not exesited',
       });
     } else {
-      console.log('This Is My Try Block');
-
       const isPasswordvalid = bcrypt.compare(Password, Userexecited.password);
       if (!isPasswordvalid) {
         return res.status(402).json({

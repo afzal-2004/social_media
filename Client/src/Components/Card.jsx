@@ -10,10 +10,14 @@ import { Appcontext } from "../Context/Appcontext";
 export const Card = ({ Data }) => {
   const { setCardid, setupdate, handelUpdatedata } = useContext(Appcontext);
   const [Like, setLike] = useState(Data.like);
-
+  const token = localStorage.getItem("Token");
   const handelDeleteCard = (id) => {
     axios
-      .delete(`http://localhost:3000/memories/Deletecard/` + id)
+      .delete(`http://localhost:3000/memories/Deletecard/` + id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data);

@@ -26,11 +26,16 @@ export const Form = () => {
     formdata.append("Title", data.Title);
     formdata.append("Message", data.Message);
     formdata.append("tags", data.tags);
+    const token = localStorage.getItem("Token");
 
     if (!update) {
       try {
         await axios
-          .post("http://localhost:3000/memories/senddata", formdata)
+          .post("http://localhost:3000/memories/senddata", formdata, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err.message));
         setdata({
@@ -48,7 +53,11 @@ export const Form = () => {
     } else {
       try {
         await axios
-          .put(`http://localhost:3000/memories/updatedata/` + Cardid, data)
+          .put(`http://localhost:3000/memories/updatedata/` + Cardid, data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
           .then((res) => {
             console.log("My Updated data is ", res);
             console.log(res.data);

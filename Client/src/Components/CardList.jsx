@@ -5,12 +5,16 @@ import { Card } from "./Card";
 
 export const CardList = () => {
   const [data, setdata] = useState([]);
+  const token = localStorage.getItem("Token");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/memories/accessdata`)
+      .get(`http://localhost:3000/memories/accessdata`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
-        console.log(res.data);
         setdata(res.data);
       })
       .catch((err) => {
