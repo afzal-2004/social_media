@@ -7,10 +7,9 @@ export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
-    Creator: "Afzal",
-    Title: "Go to mumabi",
-    Message:
-      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium",
+    Creator: "",
+    Title: "",
+    Message: " ",
   });
   useEffect(() => {
     {
@@ -18,7 +17,7 @@ export const ContextProvider = ({ children }) => {
       Token && setSignUp(false);
       console.log("Token Saved In frounted Browser", Token);
     }
-  }, []);
+  }, [SignUp]);
 
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {

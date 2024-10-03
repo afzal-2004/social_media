@@ -9,11 +9,11 @@ const BackendUrl = "http://localhost:3000";
 export const SignUp = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
-    first: "Afzal",
-    last: ".",
-    email: "moa44468@gmail.com",
-    Password: "14",
-    ConfirmPassword: "14",
+    first: "",
+    last: "",
+    email: "",
+    Password: "",
+    ConfirmPassword: "",
   });
 
   const HandleChange = (e) => {
@@ -136,8 +136,8 @@ export const SignUp = () => {
 export const SingIn = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
-    email: "moa44468@gmail.com",
-    Password: "14",
+    email: "",
+    Password: "",
   });
   const handelChange = (e) => {
     e.preventDefault();

@@ -53,7 +53,7 @@ const SignUpUser = async (req, res) => {
 const SignInUser = async (req, res) => {
   const { email, Password } = req.body;
   console.log('Email  and Password : ', email, Password);
-  // console.log('User Execited Position is ', Userexecited);
+
   const Userexecited = await user.findOne({ email });
 
   try {

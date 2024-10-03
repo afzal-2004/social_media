@@ -24,8 +24,8 @@ const PostSchema = new mongoose.Schema(
       default: 0,
     },
     provided_by: {
-      type: Date,
-      default: new Date(),
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
   },
   {

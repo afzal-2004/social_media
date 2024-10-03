@@ -24,9 +24,7 @@ export const Nav = () => {
             <button className="SignInAndSignUpbtn">Sign Up</button>
           </Link>
         ) : (
-          <Link to={"/user"}>
-            <UserProfile />
-          </Link>
+          <UserProfile />
         )}
       </div>
     </>
