@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import axios from "axios";
 const BackendUrl = "http://localhost:3000";
@@ -14,7 +15,6 @@ export const UserProfile = () => {
         },
       })
       .then((res) => {
-        // console.log(res.data);
         setdata(res.data);
       })
       .catch((err) => {
