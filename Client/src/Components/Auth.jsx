@@ -3,15 +3,17 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
 const BackendUrl = "http://localhost:3000";
+
 export const SignUp = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
-    first: "",
-    last: "",
-    email: "",
-    Password: "",
-    ConfirmPassword: "",
+    first: "Afzal",
+    last: ".",
+    email: "moa44468@gmail.com",
+    Password: "14",
+    ConfirmPassword: "14",
   });
 
   const HandleChange = (e) => {
@@ -134,8 +136,8 @@ export const SignUp = () => {
 export const SingIn = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
-    email: "",
-    Password: "",
+    email: "moa44468@gmail.com",
+    Password: "14",
   });
   const handelChange = (e) => {
     e.preventDefault();
@@ -153,6 +155,7 @@ export const SingIn = () => {
           toast.success("Login", {
             autoClose: 3000,
           });
+
           setdata({
             email: "",
             Password: "",

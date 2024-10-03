@@ -1,5 +1,5 @@
-import mongoose, { model, Schema } from 'mongoose';
-const PostSchema = new Schema(
+import mongoose from 'mongoose';
+const PostSchema = new mongoose.Schema(
   {
     Creator: {
       type: String,
@@ -10,7 +10,6 @@ const PostSchema = new Schema(
       type: String,
       required: true,
       lowercase: false,
-      unique: true,
     },
     Message: {
       type: String,
@@ -25,12 +24,12 @@ const PostSchema = new Schema(
       default: 0,
     },
     provided_by: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      type: Date,
+      default: new Date(),
     },
   },
   {
     timestamps: true,
   }
 );
-export const post = model('post', PostSchema);
+export const post = mongoose.model('post', PostSchema);

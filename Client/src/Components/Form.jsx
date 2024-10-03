@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Appcontext } from "../Context/Appcontext";
 
 export const Form = () => {
-  const { Cardid, update, data, setdata, File, setFile } =
+  const { Cardid, update, data, setdata, File, setFile, SignUp } =
     useContext(Appcontext);
 
   const handleFileChange = (e) => {
@@ -111,7 +111,11 @@ export const Form = () => {
         />
 
         <input type="file" name="Filepath" onChange={handleFileChange} />
-        <button type="sumbit" className=" bg-blue-400  ">
+        <button
+          type="sumbit"
+          disabled={SignUp}
+          className={!SignUp ? "bg-blue-400" : "bg-blue-300 cursor-not-allowed"}
+        >
           {update ? "Update" : "Post"}
         </button>
         <button className=" bg-red-500 " onClick={clearData}>

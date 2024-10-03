@@ -1,17 +1,24 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { Appcontext } from "./Appcontext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export const ContextProvider = ({ children }) => {
   const [SignUp, setSignUp] = useState(true);
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
     Creator: "Afzal",
-    Title: "Go To mumbai",
+    Title: "Go to mumabi",
     Message:
       " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium",
   });
+  useEffect(() => {
+    {
+      const Token = localStorage.getItem("Token");
+      Token && setSignUp(false);
+      console.log("Token Saved In frounted Browser", Token);
+    }
+  }, []);
 
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {

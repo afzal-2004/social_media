@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+
 import { post } from '../Models/post.model.js';
 import { uploadImage } from '../utils/Cloudniary.js';
 
@@ -25,7 +27,7 @@ const Senddata = async (req, res) => {
     Creator,
     Title,
     Message,
-    provided_by,
+    provided_by: new Date().toISOString(),
     avtar: Clodniary.url || '',
   });
 

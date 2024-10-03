@@ -86,4 +86,24 @@ const SignInUser = async (req, res) => {
     });
   }
 };
-export { SignUpUser, SignInUser };
+
+const getSignUpUser = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    const Finduser = await user.findById({
+      _id: decode.id,
+    });
+
+    return res.status(201).json({
+      Finduser,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error: error,
+      message: 'SomeThing Went Wrong',
+    });
+  }
+};
+export { SignUpUser, SignInUser, getSignUpUser };
