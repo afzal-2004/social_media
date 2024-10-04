@@ -16,12 +16,13 @@ export const CardList = () => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setdata(res.data);
       })
       .catch((err) => {
         console.log("My error is ", err);
       });
-  }, []);
+  }, [token]);
 
   return (
     <div className=" w-[78%] flex  flex-wrap sm:gap-4 ">

@@ -49,8 +49,7 @@ export const Nav = () => {
 export const UserProfileNav = () => {
   const handlelogout = () => {
     localStorage.removeItem("Token");
-    const checklocalStoargeToken = localStorage.getItem("Token");
-    if (checklocalStoargeToken === "") {
+    if (!localStorage.removeItem("Token")) {
       toast.success(" You Logout SuccessFully ");
     }
   };

@@ -4,8 +4,8 @@ import { post } from '../Models/post.model.js';
 import { uploadImage } from '../utils/Cloudniary.js';
 
 const accessitems = async (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  // const token = req.headers.authorization.split(' ')[1];
+  // const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   // console.log(
   //   ' This Is decoded Items For my Access Items On a Particulear user Login',
   //   decode
@@ -15,13 +15,9 @@ const accessitems = async (req, res) => {
   //   decode.id
   // );
   try {
-    post
-      .find({
-        provided_by: decode.id,
-      })
-      .then((data) => {
-        res.json(data);
-      });
+    post.find({}).then((data) => {
+      res.json(data);
+    });
   } catch (error) {
     console.log(error);
     return res.status(401).json({

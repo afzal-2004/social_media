@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { MdArrowDropDown } from "react-icons/md";
+
 const BackendUrl = "http://localhost:3000";
 export const UserProfile = () => {
   const token = localStorage.getItem("Token");
@@ -34,6 +35,3 @@ export const UserProfile = () => {
     </>
   );
 };
-
-
-
