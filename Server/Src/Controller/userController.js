@@ -29,7 +29,7 @@ const SignUpUser = async (req, res) => {
       const token = jwt.sign(
         { email: User.email, id: User._id },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '3d' }
+        { expiresIn: '1d' }
       );
 
       const result = await User.save();
@@ -52,7 +52,6 @@ const SignUpUser = async (req, res) => {
 
 const SignInUser = async (req, res) => {
   const { email, Password } = req.body;
-  console.log('Email  and Password : ', email, Password);
 
   const Userexecited = await user.findOne({ email });
 
@@ -71,7 +70,7 @@ const SignInUser = async (req, res) => {
         const token = jwt.sign(
           { email: Userexecited.email, id: Userexecited._id },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: '3d' }
+          { expiresIn: '1d' }
         );
         return res.status(201).json({
           message: Userexecited,

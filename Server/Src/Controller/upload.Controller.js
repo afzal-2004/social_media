@@ -6,14 +6,14 @@ import { uploadImage } from '../utils/Cloudniary.js';
 const accessitems = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  console.log(
-    ' This Is decoded Items For my Access Items On a Particulear user Login',
-    decode
-  );
-  console.log(
-    ' This Is decoded Items For my Access Items On a Particulear user Login',
-    decode.id
-  );
+  // console.log(
+  //   ' This Is decoded Items For my Access Items On a Particulear user Login',
+  //   decode
+  // );
+  // console.log(
+  //   ' This Is decoded Items For my Access Items On a Particulear user Login',
+  //   decode.id
+  // );
   try {
     post
       .find({
