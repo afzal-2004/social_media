@@ -36,14 +36,4 @@ export const UserProfile = () => {
 };
 
 
-export const UserProfileNav = () => {
-  return (
-    <>
-      <ul>
-        <li>Post </li>
-        <li>My Profile </li>
-        <li> Logout </li>
-      </ul>
-    </>
-  );
-};
+
