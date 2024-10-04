@@ -80,7 +80,7 @@ const Updatecard = async (req, res) => {
       new: true,
       runValidators: true,
     });
-    console.log(UpdateUser);
+
     return res.status(200).json({
       message: 'Success',
     });

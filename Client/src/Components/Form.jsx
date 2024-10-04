@@ -2,7 +2,7 @@ import { useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Appcontext } from "../Context/Appcontext";
-
+const BackendUrl = "http://localhost:3000";
 export const Form = () => {
   const { Cardid, update, data, setdata, File, setFile, SignUp } =
     useContext(Appcontext);
@@ -31,7 +31,7 @@ export const Form = () => {
     if (!update) {
       try {
         await axios
-          .post("http://localhost:3000/memories/senddata", formdata, {
+          .post(`${BackendUrl}/memories/senddata`, formdata, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -53,7 +53,7 @@ export const Form = () => {
     } else {
       try {
         await axios
-          .put(`http://localhost:3000/memories/updatedata/` + Cardid, data, {
+          .put(`${BackendUrl}/memories/updatedata/` + Cardid, data, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

@@ -11,9 +11,11 @@ export const Card = ({ Data }) => {
   const { setCardid, setupdate, handelUpdatedata } = useContext(Appcontext);
   const [Like, setLike] = useState(Data.like);
   const token = localStorage.getItem("Token");
+
+  const BackendUrl = "http://localhost:3000";
   const handelDeleteCard = (id) => {
     axios
-      .delete(`http://localhost:3000/memories/Deletecard/` + id, {
+      .delete(`${BackendUrl}/memories/Deletecard/` + id, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,7 +33,7 @@ export const Card = ({ Data }) => {
   const handleLike = async (id) => {
     try {
       await axios
-        .put("http://localhost:3000/memories/getLikeCount/" + id, Like)
+        .put(`${BackendUrl}/memories/getLikeCount/` + id, Like)
         .then((res) => {
           console.log(res);
           console.log("Data For like Count ", res.data);

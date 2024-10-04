@@ -4,9 +4,9 @@ import { Appcontext } from "./Appcontext";
 import { useState, useEffect } from "react";
 export const ContextProvider = ({ children }) => {
   const [SignUp, setSignUp] = useState(true);
-
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
+  const BackendUrl = "http://localhost:3000";
   const [data, setdata] = useState({
     Creator: "",
     Title: "",
@@ -24,7 +24,7 @@ export const ContextProvider = ({ children }) => {
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {
     axios
-      .get("http://localhost:3000/memories/getupdateContact/" + Cardid)
+      .get(`${BackendUrl}/memories/getupdateContact/` + Cardid)
       .then((res) => {
         console.log("This Responce Come From backend Side ", res);
         console.log("The Responec of my data", res.data);

@@ -3,14 +3,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import { Card } from "./Card";
-
+const BackendUrl = "http://localhost:3000";
 export const CardList = () => {
   const [data, setdata] = useState([]);
   const token = localStorage.getItem("Token");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/memories/accessdata`, {
+      .get(`${BackendUrl}/memories/accessdata`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
