@@ -25,7 +25,7 @@ export const UserProfile = () => {
 
   return (
     <>
-      <div className=" flex justify-center items-center gap-3 border border-red-500">
+      <div className=" flex justify-center items-center gap-3 ">
         <div className=" uppercase text-white   bg-yellow-300 w-[50px] h-[50px]  flex justify-center items-center p-2 rounded-full ">
           <p>{data.Finduser?.firstname[0]}</p>
         </div>
