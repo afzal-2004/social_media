@@ -4,6 +4,7 @@ import { Appcontext } from "./Appcontext";
 import { useState, useEffect } from "react";
 export const ContextProvider = ({ children }) => {
   const [SignUp, setSignUp] = useState(true);
+
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
@@ -11,6 +12,7 @@ export const ContextProvider = ({ children }) => {
     Title: "",
     Message: " ",
   });
+  const [openSidenav, setopenSidenav] = useState(false);
   useEffect(() => {
     {
       const Token = localStorage.getItem("Token");
@@ -51,6 +53,8 @@ export const ContextProvider = ({ children }) => {
     handelUpdatedata,
     SignUp,
     setSignUp,
+    openSidenav,
+    setopenSidenav,
   };
   return <Appcontext.Provider value={value}>{children}</Appcontext.Provider>;
 };

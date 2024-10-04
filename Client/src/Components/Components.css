@@ -1,5 +1,5 @@
  .navbarClass {
-     @apply text-[20px] sm:text-[25px] xl:text-[30px] font-semibold bg-blue-500 text-center flex justify-between items-center gap-4 p-2
+     @apply text-[20px] sm:text-[25px] xl:text-[30px] font-semibold bg-blue-500 text-center flex justify-between items-center gap-4 p-2 max-h-[80px] min-h-[70px]
  }
 
  .Formmain {
