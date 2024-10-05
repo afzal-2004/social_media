@@ -51,14 +51,28 @@ const Senddata = async (req, res) => {
   });
 };
 const Deletecard = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  const Userid = decode.id;
+
   try {
     const id = req.params.id;
-    console.log(' id is this Send From  frountend', id);
+    const postToDelete = await post.findById({ _id: id });
+
+    if (postToDelete.provided_by != Userid) {
+      return res.status(403).json({
+        message: 'You are not authorized to delete this post',
+      });
+    }
     const DeletedContact = await post.findByIdAndDelete({ _id: id });
     if (!DeletedContact) {
       return res.status(401).json({
         message: 'Something Went Wrong',
         details: error.message,
+      });
+    } else {
+      return res.status(201).json({
+        message: 'Post deleted SuccesFully ',
       });
     }
   } catch (error) {
@@ -104,6 +118,8 @@ const getUpdatedContact = async (req, res) => {
   }
 };
 const LikePost = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   try {
     const id = req.params.id;
     const { like } = req.body;
@@ -129,8 +145,8 @@ const Mypost = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    console.log(' decoded token on Backend is ', decode);
-    console.log('decode  token id In Backend is ', decode.id);
+    // console.log(' decoded token on Backend is ', decode);
+    // console.log('decode  token id In Backend is ', decode.id);
 
     const data = await post.find({
       provided_by: decode.id,
