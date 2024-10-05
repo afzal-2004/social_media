@@ -49,9 +49,9 @@ export const Card = ({ Data }) => {
 
   return (
     <>
-      <div className=" cardContainer  ">
+      <div className=" cardContainer   ">
         <img src={Data.avtar} alt="" className=" imageData" />
-        <span className=" OverLap ">A</span>
+        <span className=" OverLap "></span>
         <p className=" uppercase absolute top-2  left-2 text-white">
           {Data.Creator}
         </p>

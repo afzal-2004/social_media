@@ -16,11 +16,11 @@
  }
 
  .imageData {
-     @apply w-[300px] max-h-[50%] object-fill border-2 border-black rounded-xl
+     @apply w-[350px] max-h-[50%] object-fill border-2 border-black rounded-xl
  }
 
  .cardContainer {
-     @apply border border-slate-400 rounded-xl sm:w-[300px] w-full min-h-[400px] flex flex-col items-center sm:gap-4 bg-blue-300 relative;
+     @apply border border-slate-400 rounded-xl w-[350px] min-h-[400px] flex flex-col items-center m-3 sm:gap-4 bg-blue-300 relative z-10;
  }
 
  .Editbtn {
@@ -28,7 +28,7 @@
  }
 
  .OverLap {
-     @apply absolute w-full border border-red-500 top-0 max-h-[50%] opacity-60 min-h-[42%] rounded-xl;
+     @apply absolute w-full border border-red-500 top-0 min-h-[50%] opacity-60 rounded-xl;
      background: linear-gradient(to bottom, black, white, black);
  }
 

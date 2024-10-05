@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { Appcontext } from "./Appcontext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 export const ContextProvider = ({ children }) => {
-  const [SignUp, setSignUp] = useState(true);
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const BackendUrl = "http://localhost:3000";
@@ -13,13 +12,6 @@ export const ContextProvider = ({ children }) => {
     Message: " ",
   });
   const [openSidenav, setopenSidenav] = useState(false);
-  useEffect(() => {
-    {
-      const Token = localStorage.getItem("Token");
-      Token && setSignUp(false);
-      console.log("Token Saved In frounted Browser", Token);
-    }
-  }, [SignUp]);
 
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {
@@ -51,8 +43,7 @@ export const ContextProvider = ({ children }) => {
     File,
     setFile,
     handelUpdatedata,
-    SignUp,
-    setSignUp,
+
     openSidenav,
     setopenSidenav,
   };

@@ -125,6 +125,28 @@ const LikePost = async (req, res) => {
     });
   }
 };
+const Mypost = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    console.log(' decoded token on Backend is ', decode);
+    console.log('decode  token id In Backend is ', decode.id);
+
+    const data = await post.find({
+      provided_by: decode.id,
+    });
+    // console.log(
+    //   'data On Backend console User That  he Posted on the web is ',
+    //   data
+    // );
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(404).json({
+      details: error,
+      message: 'Something went Wrong ',
+    });
+  }
+};
 
 export {
   accessitems,
@@ -133,4 +155,5 @@ export {
   Updatecard,
   getUpdatedContact,
   LikePost,
+  Mypost,
 };

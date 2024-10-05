@@ -25,10 +25,13 @@ export const CardList = () => {
   }, [token]);
 
   return (
-    <div className=" w-[78%] flex  flex-wrap sm:gap-4 ">
+    <div
+      className=" sm:w-[78%]  w-full   grid grid-col-2  
+    sm:flex border border-red-500  m-auto"
+    >
       {" "}
       {data.map((Data, i) => (
-        <div key={i} className="">
+        <div key={i} className=" m-auto">
           <Card Data={Data} />
         </div>
       ))}

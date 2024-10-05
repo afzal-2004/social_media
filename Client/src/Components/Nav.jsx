@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Components.css";
 import { Appcontext } from "../Context/Appcontext";
 import { useContext } from "react";
 import { UserProfile } from "./UserProfile";
 export const Nav = () => {
-  const { SignUp, openSidenav, setopenSidenav } = useContext(Appcontext);
-
+  const { openSidenav, setopenSidenav } = useContext(Appcontext);
+  const token = localStorage.getItem("Token");
+  console.log("token on Frounted Side  is ", token);
+  if (token) {
+    console.log("Token is Exected");
+  } else {
+    console.log("Token Is  Not existed");
+  }
+  const handlenav = () => {
+    setopenSidenav(!openSidenav);
+  };
   return (
     <>
       <div className="navbarClass ">
@@ -20,24 +30,19 @@ export const Nav = () => {
             <h1> Hello Memories</h1>
           </Link>
         </div>
-        {SignUp ? (
+        {!token ? (
           <Link to={"/signUp"}>
             <button className="SignInAndSignUpbtn">Sign Up</button>
           </Link>
         ) : (
           <>
-            <div
-              className="  "
-              onClick={() => {
-                setopenSidenav(!openSidenav);
-              }}
-            >
+            <div className="  " onClick={handlenav}>
               <UserProfile />
             </div>
 
             {openSidenav && (
-              <div className=" absolute     top-[80px] right-[10px]  bg-white p-3 rounded-sm min-h-[200px]">
-                <UserProfileNav />
+              <div className=" absolute      top-[80px] right-[10px]  bg-white p-3 rounded-sm min-h-[200px] z-50">
+                <UserProfileNav handlenav={handlenav} />
               </div>
             )}
           </>
@@ -46,7 +51,7 @@ export const Nav = () => {
     </>
   );
 };
-export const UserProfileNav = () => {
+export const UserProfileNav = ({ handlenav }) => {
   const handlelogout = () => {
     localStorage.removeItem("Token");
     if (!localStorage.removeItem("Token")) {
@@ -55,18 +60,18 @@ export const UserProfileNav = () => {
   };
   return (
     <>
-      <ul className=" p-3 h-full   cursor-pointer ">
-        <Link to={"/"}>
+      <ul className=" p-3 h-full       cursor-pointer " onClick={handlenav}>
+        <NavLink to={"/My_Post"}>
           <li className=" p-2 border border-t-0 border-l-0 border-r-0 ">
-            Post{" "}
+            My Post{" "}
           </li>
-        </Link>
+        </NavLink>
 
-        <Link to="/my_Profile">
+        <NavLink to="/my_Profile">
           <li className=" p-2 border border-t-0 border-l-0 border-r-0 ">
             My Profile{" "}
           </li>
-        </Link>
+        </NavLink>
 
         <li
           className=" p-2 border border-t-0 border-l-0 border-r-0 "

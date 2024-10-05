@@ -4,7 +4,9 @@ import { toast } from "react-toastify";
 import { Appcontext } from "../Context/Appcontext";
 const BackendUrl = "http://localhost:3000";
 export const Form = () => {
-  const { Cardid, update, data, setdata, File, setFile, SignUp } =
+  const token = localStorage.getItem("Token");
+
+  const { Cardid, update, data, setdata, File, setFile } =
     useContext(Appcontext);
 
   const handleFileChange = (e) => {
@@ -26,7 +28,6 @@ export const Form = () => {
     formdata.append("Title", data.Title);
     formdata.append("Message", data.Message);
     formdata.append("tags", data.tags);
-    const token = localStorage.getItem("Token");
 
     if (!update) {
       try {
@@ -113,8 +114,8 @@ export const Form = () => {
         <input type="file" name="Filepath" onChange={handleFileChange} />
         <button
           type="sumbit"
-          disabled={SignUp}
-          className={!SignUp ? "bg-blue-400" : "bg-blue-300 cursor-not-allowed"}
+          disabled={!token}
+          className={token ? "bg-blue-500" : "bg-blue-300 cursor-not-allowed"}
         >
           {update ? "Update" : "Post"}
         </button>
