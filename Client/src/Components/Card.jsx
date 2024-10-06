@@ -13,8 +13,8 @@ export const Card = ({ Data }) => {
   const token = localStorage.getItem("Token");
 
   const BackendUrl = "http://localhost:3000";
-  const handelDeleteCard = (id) => {
-    axios
+  const handelDeleteCard = async (id) => {
+    await axios
       .delete(`${BackendUrl}/memories/Deletecard/` + id, {
         headers: {
           Authorization: `Bearer ${token}`,

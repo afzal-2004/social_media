@@ -27,7 +27,7 @@ export const Nav = () => {
             className=" max-w-[100px] rounded-md "
           />
           <Link to="/">
-            <h1> Hello Memories</h1>
+            <h1> Memories</h1>
           </Link>
         </div>
         {!token ? (

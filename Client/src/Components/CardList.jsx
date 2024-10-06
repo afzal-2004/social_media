@@ -27,11 +27,11 @@ export const CardList = () => {
   return (
     <div
       className=" sm:w-[78%]  w-full   grid grid-col-2  
-    sm:flex border border-red-500  m-auto"
+    sm:flex  m-auto"
     >
       {" "}
       {data.map((Data, i) => (
-        <div key={i} className=" m-auto">
+        <div key={i} className="">
           <Card Data={Data} />
         </div>
       ))}
