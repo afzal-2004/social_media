@@ -29,10 +29,10 @@ export const SignUp = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
-          console.log(
-            "Token Genrated  From the Backend Side is ",
-            res.data.token
-          );
+          // console.log(
+          //   "Token Genrated  From the Backend Side is ",
+          //   res.data.token
+          // );
           setdata({
             first: "",
             last: "",
