@@ -7,13 +7,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { Appcontext } from "../Context/Appcontext";
+import { BackendUrl, token } from "../assets/constant";
 export const Card = ({ Data }) => {
   const { setCardid, setupdate, handelUpdatedata, FetchAllMypost } =
     useContext(Appcontext);
   const [Like, setLike] = useState(Data.like);
-  const token = localStorage.getItem("Token");
-
-  const BackendUrl = "http://localhost:3000";
+  //  PERFROM DELETE OPERATION UPON CARD
   const handelDeleteCard = async (id) => {
     await axios
       .delete(`${BackendUrl}/memories/Deletecard/` + id, {
@@ -32,6 +31,7 @@ export const Card = ({ Data }) => {
         toast.error("Something Went Wrong");
       });
   };
+  //  HADLEING LIKE FUNCTIONALITY ON THE CARD
   const handleLike = async (id) => {
     try {
       await axios
@@ -53,8 +53,8 @@ export const Card = ({ Data }) => {
     <>
       <div className=" cardContainer   ">
         <img src={Data.avtar} alt="" className=" imageData" />
-        <span className=" OverLap "></span>
-        <p className=" uppercase absolute top-2  left-2 text-white">
+
+        <p className=" uppercase absolute top-2  left-2 text-red-500">
           {Data.Creator}
         </p>
         <HiOutlineDotsHorizontal
@@ -88,6 +88,7 @@ export const Card = ({ Data }) => {
               {Like}
             </p>
 
+            {}
             <MdDelete
               className=" right-2  text-[30px] text-red-600 "
               onClick={() => {

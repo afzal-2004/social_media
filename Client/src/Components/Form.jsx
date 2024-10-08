@@ -2,10 +2,9 @@ import { useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Appcontext } from "../Context/Appcontext";
-const BackendUrl = "http://localhost:3000";
-export const Form = () => {
-  const token = localStorage.getItem("Token");
+import { BackendUrl, token } from "../assets/constant";
 
+export const Form = () => {
   const { Cardid, update, data, setdata, File, setFile, FetchAllMypost } =
     useContext(Appcontext);
 
@@ -91,7 +90,7 @@ export const Form = () => {
       <form
         action="Sumbit"
         onSubmit={handleSendData}
-        className=" flex flex-col "
+        className=" flex flex-col  "
       >
         <input
           type="text "

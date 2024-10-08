@@ -2,12 +2,11 @@
 import axios from "axios";
 import { Appcontext } from "./Appcontext";
 import { useState } from "react";
+import { BackendUrl, token } from "../assets/constant";
+
 export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
-  const BackendUrl = "http://localhost:3000";
-  const token = localStorage.getItem("Token");
-
   const [data, setdata] = useState({
     Creator: "",
     Title: "",
@@ -15,7 +14,8 @@ export const ContextProvider = ({ children }) => {
   });
   const [openSidenav, setopenSidenav] = useState(false);
   const [Postdata, setPostdata] = useState([]);
-
+  const [UserProfileData, setUserProfileData] = useState([]);
+  console.log("User Profile data  is ", UserProfileData);
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {
     axios
@@ -50,6 +50,24 @@ export const ContextProvider = ({ children }) => {
         console.log("My error is ", err);
       });
   };
+  const FetchuserProfileData = () => {
+    axios
+      .get(`${BackendUrl}/memories/SignUpdata`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(
+          " This Data is Come from backend  For My profile As  A responce ",
+          res.data
+        );
+        setUserProfileData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const value = {
     Cardid,
@@ -66,6 +84,9 @@ export const ContextProvider = ({ children }) => {
     FetchAllMypost,
     openSidenav,
     setopenSidenav,
+    UserProfileData,
+    setUserProfileData,
+    FetchuserProfileData,
   };
   return <Appcontext.Provider value={value}>{children}</Appcontext.Provider>;
 };

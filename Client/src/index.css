@@ -15,3 +15,7 @@ body {
   font-style: normal;
   background-image: url('/Background.svg');
 }
+
+input {
+  @apply outline-none
+}

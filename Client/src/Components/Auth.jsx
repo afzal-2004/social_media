@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
-const BackendUrl = "http://localhost:3000";
-
+import { BackendUrl } from "../assets/constant";
+import "./Components.css";
+import { Appcontext } from "../Context/Appcontext";
 export const SignUp = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
@@ -81,7 +81,7 @@ export const SignUp = () => {
                 name="first"
                 value={data.first}
                 placeholder="First Name"
-                className=" signUpInput sm:w-[170px] "
+                className=" signUpInput sm:w-[170px]  outline-none"
                 onChange={HandleChange}
               />
               <input
@@ -89,7 +89,7 @@ export const SignUp = () => {
                 name="last"
                 value={data.last}
                 placeholder="Last Name"
-                className=" signUpInput sm:w-[170px] "
+                className=" signUpInput sm:w-[170px] outline-none "
                 onChange={HandleChange}
               />
             </div>
@@ -98,7 +98,7 @@ export const SignUp = () => {
               name="email"
               value={data.email}
               placeholder="Email"
-              className=" signUpInput   mt-5  "
+              className=" signUpInput   mt-5  outline-none "
               onChange={HandleChange}
             />
             <input
@@ -106,7 +106,7 @@ export const SignUp = () => {
               name="Password"
               value={data.Password}
               placeholder="Password"
-              className="signUpInput  mt-5  "
+              className="signUpInput  mt-5  outline-none "
               onChange={HandleChange}
             />
             <input
@@ -114,7 +114,7 @@ export const SignUp = () => {
               name="ConfirmPassword"
               value={data.ConfirmPassword}
               placeholder="Repeat Password"
-              className=" signUpInput  mt-5  "
+              className=" signUpInput  mt-5 outline-none  "
               onChange={HandleChange}
             />
             <button className=" bg-blue-500 text-white p-3 w-full mt-5">
@@ -134,6 +134,8 @@ export const SignUp = () => {
 };
 
 export const SingIn = () => {
+  const { FetchuserProfileData } = useContext(Appcontext);
+
   const navigate = useNavigate();
   const [data, setdata] = useState({
     email: "",
@@ -143,6 +145,7 @@ export const SingIn = () => {
     e.preventDefault();
     setdata({ ...data, [e.target.name]: e.target.value });
   };
+
   const handleData = (e) => {
     e.preventDefault();
     console.log(data);
@@ -151,6 +154,7 @@ export const SingIn = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
+          FetchuserProfileData();
           localStorage.setItem("Token", res.data.token);
           toast.success("Login", {
             autoClose: 3000,
@@ -160,7 +164,6 @@ export const SingIn = () => {
             email: "",
             Password: "",
           });
-
           setTimeout(() => {
             navigate("/");
           }, 2000);
@@ -194,7 +197,7 @@ export const SingIn = () => {
               name="email"
               value={data.email}
               onChange={handelChange}
-              className=" signUpInput   mt-5  "
+              className=" signUpInput   mt-5  outline-none "
             />
             <input
               type="Password"
@@ -202,7 +205,7 @@ export const SingIn = () => {
               name="Password"
               value={data.Password}
               onChange={handelChange}
-              className="signUpInput  mt-5  "
+              className="signUpInput  mt-5 outline-none  "
             />
 
             <button className=" bg-blue-500 text-white p-3 w-full mt-5">

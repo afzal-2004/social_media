@@ -125,8 +125,8 @@ const LikePost = async (req, res) => {
     const { like } = req.body;
     const Post = await post.findByIdAndUpdate(
       id,
-      { $inc: { like: 1 } }, // Increment the like field by 1
-      { new: true, runValidators: true } // Return the updated document
+      { $inc: { like: 1 } },
+      { new: true, runValidators: true }
     );
     if (!Post) {
       return res.status(404).json({ message: 'Post not found' });

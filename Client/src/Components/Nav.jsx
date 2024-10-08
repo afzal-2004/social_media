@@ -5,21 +5,16 @@ import "./Components.css";
 import { Appcontext } from "../Context/Appcontext";
 import { useContext } from "react";
 import { UserProfile } from "./UserProfile";
+import { token } from "../assets/constant";
 export const Nav = () => {
   const { openSidenav, setopenSidenav } = useContext(Appcontext);
-  const token = localStorage.getItem("Token");
-  console.log("token on Frounted Side  is ", token);
-  if (token) {
-    console.log("Token is Exected");
-  } else {
-    console.log("Token Is  Not existed");
-  }
+
   const handlenav = () => {
     setopenSidenav(!openSidenav);
   };
   return (
     <>
-      <div className="navbarClass ">
+      <div className="navbarClass cursor-pointer ">
         <div className=" gap-3 flex items-center">
           <img
             src="/photographs-256888_640.jpg"

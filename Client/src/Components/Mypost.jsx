@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
-const BackendUrl = "http://localhost:3000";
-const token = localStorage.getItem("Token");
+
+import { BackendUrl, token } from "../assets/constant";
 export const Mypost = () => {
   const [Mypost, setMypost] = useState([]);
   const FetchMypost = async () => {
