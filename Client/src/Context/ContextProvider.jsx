@@ -58,10 +58,6 @@ export const ContextProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        console.log(
-          " This Data is Come from backend  For My profile As  A responce ",
-          res.data
-        );
         setUserProfileData(res.data);
       })
       .catch((err) => {
