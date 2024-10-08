@@ -5,8 +5,8 @@ const BackendUrl = "http://localhost:3000";
 const token = localStorage.getItem("Token");
 export const Mypost = () => {
   const [Mypost, setMypost] = useState([]);
-  useEffect(() => {
-    axios
+  const FetchMypost = async () => {
+    await axios
       .get(`${BackendUrl}/memories/My_posts`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -18,12 +18,19 @@ export const Mypost = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    FetchMypost();
   }, []);
 
   return (
     <div>
       {Mypost.map((Data, i) => (
-        <div key={i} className=" mt-3">
+        <div
+          key={i}
+          className="   w-full   grid grid-col-2  
+        sm:flex flex-wrap "
+        >
           <Card Data={Data} />
         </div>
       ))}

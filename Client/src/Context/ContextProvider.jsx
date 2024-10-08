@@ -6,12 +6,15 @@ export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const BackendUrl = "http://localhost:3000";
+  const token = localStorage.getItem("Token");
+
   const [data, setdata] = useState({
     Creator: "",
     Title: "",
     Message: " ",
   });
   const [openSidenav, setopenSidenav] = useState(false);
+  const [Postdata, setPostdata] = useState([]);
 
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {
@@ -32,6 +35,21 @@ export const ContextProvider = ({ children }) => {
         console.log(err);
       });
   };
+  const FetchAllMypost = () => {
+    axios
+      .get(`${BackendUrl}/memories/accessdata`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setPostdata(res.data);
+      })
+      .catch((err) => {
+        console.log("My error is ", err);
+      });
+  };
 
   const value = {
     Cardid,
@@ -43,7 +61,9 @@ export const ContextProvider = ({ children }) => {
     File,
     setFile,
     handelUpdatedata,
-
+    Postdata,
+    setPostdata,
+    FetchAllMypost,
     openSidenav,
     setopenSidenav,
   };

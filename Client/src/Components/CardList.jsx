@@ -1,36 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
-import { useState, useEffect } from "react";
+
+import { useContext, useEffect } from "react";
 
 import { Card } from "./Card";
-const BackendUrl = "http://localhost:3000";
-export const CardList = () => {
-  const [data, setdata] = useState([]);
-  const token = localStorage.getItem("Token");
+import { Appcontext } from "../Context/Appcontext";
 
+export const CardList = () => {
+  const { FetchAllMypost, Postdata } = useContext(Appcontext);
   useEffect(() => {
-    axios
-      .get(`${BackendUrl}/memories/accessdata`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setdata(res.data);
-      })
-      .catch((err) => {
-        console.log("My error is ", err);
-      });
-  }, [token]);
+    FetchAllMypost();
+  }, []);
 
   return (
     <div
       className=" sm:w-[78%]  w-full   grid grid-col-2  
-    sm:flex  m-auto"
+    sm:flex flex-wrap "
     >
       {" "}
-      {data.map((Data, i) => (
+      {Postdata.map((Data, i) => (
         <div key={i} className="">
           <Card Data={Data} />
         </div>

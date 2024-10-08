@@ -6,7 +6,7 @@ const BackendUrl = "http://localhost:3000";
 export const Form = () => {
   const token = localStorage.getItem("Token");
 
-  const { Cardid, update, data, setdata, File, setFile } =
+  const { Cardid, update, data, setdata, File, setFile, FetchAllMypost } =
     useContext(Appcontext);
 
   const handleFileChange = (e) => {
@@ -18,6 +18,7 @@ export const Form = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSendData = async (e) => {
     e.preventDefault();
     console.log(data);
@@ -37,7 +38,10 @@ export const Form = () => {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((res) => console.log(res.data))
+          .then(async (res) => {
+            console.log(res.data);
+            await FetchAllMypost();
+          })
           .catch((err) => console.log(err.message));
         setdata({
           Creator: "",
@@ -63,6 +67,7 @@ export const Form = () => {
             console.log("My Updated data is ", res);
             console.log(res.data);
             toast.success("Data Updated Succefully ");
+            FetchAllMypost();
           });
       } catch (error) {
         console.log(error);

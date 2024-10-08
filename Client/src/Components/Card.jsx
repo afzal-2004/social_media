@@ -8,7 +8,8 @@ import axios from "axios";
 import { useContext } from "react";
 import { Appcontext } from "../Context/Appcontext";
 export const Card = ({ Data }) => {
-  const { setCardid, setupdate, handelUpdatedata } = useContext(Appcontext);
+  const { setCardid, setupdate, handelUpdatedata, FetchAllMypost } =
+    useContext(Appcontext);
   const [Like, setLike] = useState(Data.like);
   const token = localStorage.getItem("Token");
 
@@ -24,6 +25,7 @@ export const Card = ({ Data }) => {
         console.log(res);
         console.log(res.data);
         toast.success("Succefully Deleted Your Data  ");
+        FetchAllMypost();
       })
       .catch((error) => {
         console.log(error);
