@@ -35,3 +35,13 @@ export const UserProfile = () => {
     </>
   );
 };
+export const MyProfile = () => {
+  return (
+    <>
+      <h1 className=" text-red-500 text-center text-[28px] font-semibold">
+        {" "}
+        ProFileSection
+      </h1>
+    </>
+  );
+};

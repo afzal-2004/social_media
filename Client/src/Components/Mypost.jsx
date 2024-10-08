@@ -25,15 +25,24 @@ export const Mypost = () => {
 
   return (
     <div>
-      {Mypost.map((Data, i) => (
-        <div
-          key={i}
-          className="   w-full   grid grid-col-2  
+      {Mypost.length > 0 ? (
+        <>
+          {Mypost.map((Data, i) => (
+            <div
+              key={i}
+              className="   w-full   grid grid-col-2  
         sm:flex flex-wrap "
-        >
-          <Card Data={Data} />
-        </div>
-      ))}
+            >
+              <Card Data={Data} />
+            </div>
+          ))}
+        </>
+      ) : (
+        <h1 className=" text-red-500 text-center text-[28px] font-semibold">
+          {" "}
+          No Post Find
+        </h1>
+      )}
     </div>
   );
 };
