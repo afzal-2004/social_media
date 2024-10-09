@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { Appcontext } from "./Appcontext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BackendUrl, token } from "../assets/constant";
 import { toast } from "react-toastify";
+
 export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
@@ -66,6 +67,10 @@ export const ContextProvider = ({ children }) => {
         console.log(err);
       });
   };
+  useEffect(() => {
+    FetchuserProfileData();
+    console.log("User Login Suffulyy ");
+  }, []);
 
   const value = {
     Cardid,

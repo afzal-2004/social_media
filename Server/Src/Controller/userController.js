@@ -64,7 +64,7 @@ const SignUpUser = async (req, res) => {
 //  This Controller For   User Login
 const SignInUser = async (req, res) => {
   const { email, Password, MobileNumber } = req.body;
-  console.log('Mobile Number get From frountend Side is ', MobileNumber);
+
   // const Userexecited = await user.findOne({ MobileNumber });
 
   const Userexecited = await user.findOne({

@@ -6,6 +6,7 @@ import { Appcontext } from "../Context/Appcontext";
 import { useContext } from "react";
 import { UserProfile } from "./UserProfile";
 import { token } from "../assets/constant";
+
 export const Nav = () => {
   const { openSidenav, setopenSidenav } = useContext(Appcontext);
 
@@ -47,15 +48,23 @@ export const Nav = () => {
   );
 };
 export const UserProfileNav = ({ handlenav }) => {
+  const { FetchuserProfileData } = useContext(Appcontext);
   const handlelogout = () => {
     localStorage.removeItem("Token");
     if (!localStorage.removeItem("Token")) {
       toast.success(" You Logout SuccessFully ");
     }
+
+    FetchuserProfileData();
   };
   return (
     <>
       <ul className=" p-3 h-full       cursor-pointer " onClick={handlenav}>
+        <NavLink to={"/"}>
+          <li className=" p-2 border border-t-0 border-l-0 border-r-0 ">
+            Home
+          </li>
+        </NavLink>
         <NavLink to={"/My_Post"}>
           <li className=" p-2 border border-t-0 border-l-0 border-r-0 ">
             My Post{" "}

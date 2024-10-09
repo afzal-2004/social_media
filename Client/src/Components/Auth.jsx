@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { BackendUrl } from "../assets/constant";
 import "./Components.css";
 import { Appcontext } from "../Context/Appcontext";
+
 export const SignUp = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
@@ -162,11 +163,11 @@ export const SingIn = () => {
     console.log(data);
     axios
       .post(`${BackendUrl}/memories/SignIn`, data)
-      .then((res) => {
+      .then(async (res) => {
         console.log(res);
         if (res.status === 201) {
-          FetchuserProfileData();
           localStorage.setItem("Token", res.data.token);
+          await FetchuserProfileData();
           toast.success("Login", {
             autoClose: 3000,
           });
