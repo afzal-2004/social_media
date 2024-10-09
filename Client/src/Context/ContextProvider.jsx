@@ -6,6 +6,7 @@ import { BackendUrl, token } from "../assets/constant";
 import { toast } from "react-toastify";
 
 export const ContextProvider = ({ children }) => {
+  // Initialize token from localStorage
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
@@ -68,9 +69,10 @@ export const ContextProvider = ({ children }) => {
       });
   };
   useEffect(() => {
-    FetchuserProfileData();
-    console.log("User Login Suffulyy ");
-  }, []);
+    if (token) {
+      FetchuserProfileData();
+    }
+  }, [token]);
 
   const value = {
     Cardid,

@@ -158,10 +158,10 @@ export const SingIn = () => {
     setdata({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleData = (e) => {
+  const handleData = async (e) => {
     e.preventDefault();
     console.log(data);
-    axios
+    await axios
       .post(`${BackendUrl}/memories/SignIn`, data)
       .then(async (res) => {
         console.log(res);
