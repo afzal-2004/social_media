@@ -39,3 +39,7 @@
  .signUpInput {
      @apply border border-black outline-none p-2 w-[98%]
  }
+
+ .profiledetails {
+     @apply p-2 font-semibold grid grid-cols-5 border border-r-0 border-t-0 border-l-0;
+ }

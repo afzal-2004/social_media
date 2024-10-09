@@ -3,7 +3,7 @@ import axios from "axios";
 import { Appcontext } from "./Appcontext";
 import { useState } from "react";
 import { BackendUrl, token } from "../assets/constant";
-
+import { toast } from "react-toastify";
 export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
@@ -15,24 +15,25 @@ export const ContextProvider = ({ children }) => {
   const [openSidenav, setopenSidenav] = useState(false);
   const [Postdata, setPostdata] = useState([]);
   const [UserProfileData, setUserProfileData] = useState([]);
-  console.log("User Profile data  is ", UserProfileData);
+
   const [File, setFile] = useState(null);
   const handelUpdatedata = (Cardid) => {
     axios
-      .get(`${BackendUrl}/memories/getupdateContact/` + Cardid)
+      .get(`${BackendUrl}/memories/getupdateContact/` + Cardid, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
-        console.log("This Responce Come From backend Side ", res);
-        console.log("The Responec of my data", res.data);
-        console.log("Responce About  Creator data", res.data?.Creator);
         setdata({
           Creator: res.data?.Creator,
           Title: res.data?.Title,
           Message: res.data?.Message,
-          tags: res.data?.tags,
         });
       })
       .catch((err) => {
         console.log(err);
+        toast.error(`${err.response?.data.message}`);
       });
   };
   const FetchAllMypost = () => {
@@ -43,7 +44,6 @@ export const ContextProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setPostdata(res.data);
       })
       .catch((err) => {
@@ -58,7 +58,9 @@ export const ContextProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        setUserProfileData(res.data);
+        if (res.status === 201) {
+          setUserProfileData(res.data);
+        }
       })
       .catch((err) => {
         console.log(err);

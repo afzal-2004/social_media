@@ -6,14 +6,22 @@ import dotenv from 'dotenv';
 dotenv.config({
   path: './.env',
 });
-
+//  This  Controller For User Create His Account
 const SignUpUser = async (req, res) => {
-  const { first, last, email, Password, ConfirmPassword } = req.body;
+  const {
+    first,
+    last,
+    email,
+    address,
+    DOB,
+    MobileNumber,
+    Password,
+    ConfirmPassword,
+  } = req.body;
 
   try {
     let userExexited = await user.findOne({ email });
     const hasedPassword = await bcrypt.hash(Password, 10);
-
     if (Password !== ConfirmPassword) {
       return res.status(401).json({
         message: 'Confirm Password  are Must be same ',
@@ -24,6 +32,10 @@ const SignUpUser = async (req, res) => {
         firstname: first,
         lstname: last,
         email: email,
+        address: address,
+        DOB: DOB,
+        MobileNumber: MobileNumber,
+
         password: hasedPassword,
       });
       const token = jwt.sign(
@@ -49,11 +61,15 @@ const SignUpUser = async (req, res) => {
     });
   }
 };
-
+//  This Controller For   User Login
 const SignInUser = async (req, res) => {
-  const { email, Password } = req.body;
+  const { email, Password, MobileNumber } = req.body;
+  console.log('Mobile Number get From frountend Side is ', MobileNumber);
+  // const Userexecited = await user.findOne({ MobileNumber });
 
-  const Userexecited = await user.findOne({ email });
+  const Userexecited = await user.findOne({
+    $or: [{ email }, { MobileNumber }],
+  });
 
   try {
     if (!Userexecited) {
@@ -62,6 +78,7 @@ const SignInUser = async (req, res) => {
       });
     } else {
       const isPasswordvalid = bcrypt.compare(Password, Userexecited.password);
+
       if (!isPasswordvalid) {
         return res.status(402).json({
           message: 'Incorrect password !!',
@@ -85,7 +102,7 @@ const SignInUser = async (req, res) => {
     });
   }
 };
-
+//  This Controller For user Get His Profile Details
 const getSignUpUser = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];

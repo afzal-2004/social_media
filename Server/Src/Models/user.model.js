@@ -4,11 +4,9 @@ const UserSchema = new Schema(
     firstname: {
       type: String,
       require: true,
-      lowercase: true,
     },
     lstname: {
       type: String,
-      lowercase: true,
     },
     email: {
       type: String,
@@ -17,6 +15,15 @@ const UserSchema = new Schema(
     password: {
       type: String,
       require: true,
+    },
+    address: {
+      type: String,
+    },
+    DOB: {
+      type: String,
+    },
+    MobileNumber: {
+      type: String,
     },
   },
   { timestamps: true }

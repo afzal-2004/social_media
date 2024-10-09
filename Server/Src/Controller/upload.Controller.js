@@ -3,17 +3,8 @@ import jwt from 'jsonwebtoken';
 import { post } from '../Models/post.model.js';
 import { uploadImage } from '../utils/Cloudniary.js';
 
+//  this Controller For Access All Post  On my Web Page
 const accessitems = async (req, res) => {
-  // const token = req.headers.authorization.split(' ')[1];
-  // const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  // console.log(
-  //   ' This Is decoded Items For my Access Items On a Particulear user Login',
-  //   decode
-  // );
-  // console.log(
-  //   ' This Is decoded Items For my Access Items On a Particulear user Login',
-  //   decode.id
-  // );
   try {
     post.find({}).then((data) => {
       res.json(data);
@@ -26,10 +17,9 @@ const accessitems = async (req, res) => {
     });
   }
 };
-
+//  This Controller For  Create An New Post
 const Senddata = async (req, res) => {
   const { Creator, Title, Message, tags } = req.body;
-
   const File = req.file;
   const Clodniary = await uploadImage(File.path);
   const token = req.headers.authorization.split(' ')[1];
@@ -50,9 +40,11 @@ const Senddata = async (req, res) => {
     Data,
   });
 };
+//  This  Controller For delete Post
 const Deletecard = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
   const Userid = decode.id;
 
   try {
@@ -61,7 +53,7 @@ const Deletecard = async (req, res) => {
 
     if (postToDelete.provided_by != Userid) {
       return res.status(403).json({
-        message: 'You are not authorized to delete this post',
+        message: 'You are not  Delete This post ',
       });
     }
     const DeletedContact = await post.findByIdAndDelete({ _id: id });
@@ -82,16 +74,29 @@ const Deletecard = async (req, res) => {
     });
   }
 };
+
+// This Controller for Update Post
 const Updatecard = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  console.log(decode);
   try {
     const id = req.params.id;
+    const postforUpdation = await post.findById(id);
+
+    if (postforUpdation.provided_by != decode.id) {
+      return res.status(401).json({
+        message: 'You Are not Able To Update This ',
+      });
+    }
+
     const UpdateData = req.body;
     const UpdateUser = await post.findByIdAndUpdate(id, UpdateData, {
       new: true,
       runValidators: true,
     });
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: 'Success',
     });
   } catch (error) {
@@ -102,12 +107,25 @@ const Updatecard = async (req, res) => {
     });
   }
 };
-
+//  This Controller for Give The Post After Update
 const getUpdatedContact = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
   try {
     const id = req.params.id;
-    console.log(id);
     const FindUser = await post.findById(id);
+
+    console.log(' This User I am Find In  My Db', FindUser);
+    console.log(FindUser.provided_by);
+    console.log(decode);
+    if (FindUser.provided_by != decode.id) {
+      return res.status(401).json({
+        message: ' You Are Not Update This Post ',
+      });
+    }
+
+    // const FindUser = await post.findById(id);
     return res.json(FindUser);
   } catch (error) {
     console.log(error);
@@ -117,44 +135,16 @@ const getUpdatedContact = async (req, res) => {
     });
   }
 };
-const LikePost = async (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  try {
-    const id = req.params.id;
-    const { like } = req.body;
-    const Post = await post.findByIdAndUpdate(
-      id,
-      { $inc: { like: 1 } },
-      { new: true, runValidators: true }
-    );
-    if (!Post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-
-    return res.status(200).json(Post);
-  } catch (error) {
-    console.log(error);
-    return res.status(401).json({
-      message: 'SomeThing Went wrong',
-      details: error.details,
-    });
-  }
-};
+//  This   Contrioller Give  All Post  do By an Specific  User
 const Mypost = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    // console.log(' decoded token on Backend is ', decode);
-    // console.log('decode  token id In Backend is ', decode.id);
 
     const data = await post.find({
       provided_by: decode.id,
     });
-    // console.log(
-    //   'data On Backend console User That  he Posted on the web is ',
-    //   data
-    // );
+
     return res.status(200).json(data);
   } catch (error) {
     return res.status(404).json({
@@ -170,6 +160,5 @@ export {
   Deletecard,
   Updatecard,
   getUpdatedContact,
-  LikePost,
   Mypost,
 };

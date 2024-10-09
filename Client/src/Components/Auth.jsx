@@ -14,6 +14,7 @@ export const SignUp = () => {
     email: "",
     Password: "",
     ConfirmPassword: "",
+    MobileNumber: "",
   });
 
   const HandleChange = (e) => {
@@ -39,6 +40,7 @@ export const SignUp = () => {
             email: "",
             Password: "",
             ConfirmPassword: "",
+            MobileNumber: "",
           });
           toast.success("Register Succefully", {
             autoClose: 2000,
@@ -94,6 +96,14 @@ export const SignUp = () => {
               />
             </div>
             <input
+              type="text"
+              name="MobileNumber"
+              value={data.MobileNumber}
+              placeholder="MobileNumber"
+              className=" signUpInput   mt-5  outline-none"
+              onChange={HandleChange}
+            />
+            <input
               type="email"
               name="email"
               value={data.email}
@@ -140,6 +150,7 @@ export const SingIn = () => {
   const [data, setdata] = useState({
     email: "",
     Password: "",
+    MobileNumber: "",
   });
   const handelChange = (e) => {
     e.preventDefault();
@@ -163,6 +174,7 @@ export const SingIn = () => {
           setdata({
             email: "",
             Password: "",
+            MobileNumber: "",
           });
           setTimeout(() => {
             navigate("/");
@@ -196,6 +208,15 @@ export const SingIn = () => {
               placeholder="Email"
               name="email"
               value={data.email}
+              onChange={handelChange}
+              className=" signUpInput   mt-5  outline-none "
+            />
+            <h1 className=" text-center text-slate-500 m-1"> or </h1>
+            <input
+              type="text"
+              placeholder="Mobile Number "
+              name="MobileNumber"
+              value={data.MobileNumber}
               onChange={handelChange}
               className=" signUpInput   mt-5  outline-none "
             />

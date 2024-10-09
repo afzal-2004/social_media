@@ -1,17 +1,18 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { SlLike } from "react-icons/sl";
+
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
-import { useState } from "react";
+
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Appcontext } from "../Context/Appcontext";
 import { BackendUrl, token } from "../assets/constant";
 export const Card = ({ Data }) => {
   const { setCardid, setupdate, handelUpdatedata, FetchAllMypost } =
     useContext(Appcontext);
-  const [Like, setLike] = useState(Data.like);
+
   //  PERFROM DELETE OPERATION UPON CARD
   const handelDeleteCard = async (id) => {
     await axios
@@ -22,43 +23,31 @@ export const Card = ({ Data }) => {
       })
       .then((res) => {
         console.log(res);
-        console.log(res.data);
-        toast.success("Succefully Deleted Your Data  ");
-        FetchAllMypost();
+        if (res.status === 201) {
+          console.log("Deleted Item data status", res.data);
+          toast.success(`${res.data?.message}`);
+          FetchAllMypost();
+        }
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Something Went Wrong");
+        console.log(error.response);
+        console.log(error.response?.data.message);
+        toast.error(`${error.response?.data.message}`);
       });
   };
   //  HADLEING LIKE FUNCTIONALITY ON THE CARD
-  const handleLike = async (id) => {
-    try {
-      await axios
-        .put(`${BackendUrl}/memories/getLikeCount/` + id, Like)
-        .then((res) => {
-          console.log(res);
-          console.log("Data For like Count ", res.data);
-          console.log("Like for my  Pariculer Post ", res.data.like);
-          setLike(res.data.like);
-          toast.success("You Liked  Post ");
-        });
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong ");
-    }
-  };
 
   return (
     <>
       <div className=" cardContainer   ">
         <img src={Data.avtar} alt="" className=" imageData" />
 
-        <p className=" uppercase absolute top-2  left-2 text-red-500">
+        <p className=" uppercase absolute top-2  left-2 text-white  rounded-lg bg-black  p-1  bg-opacity-50">
           {Data.Creator}
         </p>
         <HiOutlineDotsHorizontal
-          className="Editbtn right-2  text-white"
+          className="Editbtn right-2  text-black"
           onClick={() => {
             console.log("Id Of This Card is ", Data._id);
             setCardid(Data._id);
@@ -78,17 +67,6 @@ export const Card = ({ Data }) => {
             {Data.Message}
           </p>
           <div className="flex justify-between mt-4">
-            <p className="flex gap-3  items-center">
-              <SlLike
-                onClick={() => {
-                  handleLike(Data._id);
-                  setLike(Like + 1);
-                }}
-              />
-              {Like}
-            </p>
-
-            {}
             <MdDelete
               className=" right-2  text-[30px] text-red-600 "
               onClick={() => {

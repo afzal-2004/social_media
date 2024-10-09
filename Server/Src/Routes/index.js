@@ -5,7 +5,6 @@ import {
   Deletecard,
   Updatecard,
   getUpdatedContact,
-  LikePost,
   Mypost,
 } from '../Controller/upload.Controller.js';
 import {
@@ -21,8 +20,8 @@ router.get('/accessdata', accessitems);
 router.post('/senddata', Auth, upload.single('File'), Senddata);
 router.delete('/Deletecard/:id', Auth, Deletecard);
 router.put('/updatedata/:id', Auth, Updatecard);
-router.get('/getupdateContact/:id', getUpdatedContact);
-router.put('/getLikeCount/:id', LikePost);
+router.get('/getupdateContact/:id', Auth, getUpdatedContact);
+
 router.post('/SignUp', SignUpUser);
 router.post('/SignIn', SignInUser);
 router.get('/SignUpdata', getSignUpUser);

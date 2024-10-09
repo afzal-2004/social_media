@@ -20,7 +20,7 @@ export const Form = () => {
 
   const handleSendData = async (e) => {
     e.preventDefault();
-    console.log(data);
+
     console.log(File);
     const formdata = new FormData();
     formdata.append("File", File);
@@ -38,7 +38,8 @@ export const Form = () => {
             },
           })
           .then(async (res) => {
-            console.log(res.data);
+            console.log(res);
+
             await FetchAllMypost();
           })
           .catch((err) => console.log(err.message));
@@ -69,6 +70,7 @@ export const Form = () => {
             FetchAllMypost();
           });
       } catch (error) {
+        toast.error("someThing Wrong");
         console.log(error);
       }
     }

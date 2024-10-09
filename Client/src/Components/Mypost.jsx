@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card } from "./Card";
 
 import { BackendUrl, token } from "../assets/constant";
+
 export const Mypost = () => {
   const [Mypost, setMypost] = useState([]);
   const FetchMypost = async () => {
@@ -13,6 +14,7 @@ export const Mypost = () => {
         },
       })
       .then((res) => {
+        console.log(res);
         setMypost(res.data);
       })
       .catch((err) => {
