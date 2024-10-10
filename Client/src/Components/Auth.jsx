@@ -145,12 +145,12 @@ export const SignUp = () => {
 };
 
 export const SingIn = () => {
-  const { FetchuserProfileData } = useContext(Appcontext);
+  const { FetchuserProfileData, setProfileStatus } = useContext(Appcontext);
 
   const navigate = useNavigate();
   const [data, setdata] = useState({
-    email: "",
-    Password: "",
+    email: "Sample@gmail.com",
+    Password: "123",
     MobileNumber: "",
   });
   const handelChange = (e) => {
@@ -160,14 +160,15 @@ export const SingIn = () => {
 
   const handleData = async (e) => {
     e.preventDefault();
-    console.log(data);
+    // console.log(data);
     await axios
       .post(`${BackendUrl}/memories/SignIn`, data)
       .then(async (res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 201) {
           localStorage.setItem("Token", res.data.token);
           await FetchuserProfileData();
+          setProfileStatus(true);
           toast.success("Login", {
             autoClose: 3000,
           });
@@ -183,7 +184,7 @@ export const SingIn = () => {
         }
       })
       .catch((err) => {
-        toast.error(`${err.response.data?.message}`);
+        toast.error(`${err.response?.data?.message}`);
         console.log(err);
       });
   };

@@ -9,7 +9,12 @@ import { token } from "../assets/constant";
 
 export const Nav = () => {
   const { openSidenav, setopenSidenav } = useContext(Appcontext);
-
+  console.log("get  Token saved In Local Storage is ", token);
+  if (!token) {
+    console.log("SignUp Btn");
+  } else {
+    console.log("User Profile ");
+  }
   const handlenav = () => {
     setopenSidenav(!openSidenav);
   };

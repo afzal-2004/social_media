@@ -24,7 +24,7 @@ router.get('/getupdateContact/:id', Auth, getUpdatedContact);
 
 router.post('/SignUp', SignUpUser);
 router.post('/SignIn', SignInUser);
-router.get('/SignUpdata', getSignUpUser);
+router.get('/SignUpdata', Auth, getSignUpUser);
 router.get('/My_posts', Mypost);
 
 export default router;

@@ -6,7 +6,7 @@ import { BackendUrl, token } from "../assets/constant";
 import { toast } from "react-toastify";
 
 export const ContextProvider = ({ children }) => {
-  // Initialize token from localStorage
+  const [fetchProfile, setfetchProfile] = useState(false);
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
@@ -52,6 +52,7 @@ export const ContextProvider = ({ children }) => {
         console.log("My error is ", err);
       });
   };
+
   const FetchuserProfileData = () => {
     axios
       .get(`${BackendUrl}/memories/SignUpdata`, {
@@ -60,8 +61,14 @@ export const ContextProvider = ({ children }) => {
         },
       })
       .then((res) => {
+        console.log(
+          "  This is user Profile Details from The Inside Of my FetchUser Function",
+          res.data?.Finduser
+        );
+
         if (res.status === 201) {
           setUserProfileData(res.data);
+          setfetchProfile(true);
         }
       })
       .catch((err) => {
@@ -69,10 +76,10 @@ export const ContextProvider = ({ children }) => {
       });
   };
   useEffect(() => {
-    if (token) {
-      FetchuserProfileData();
-    }
-  }, [token]);
+    // if (fetchProfile) {
+    FetchuserProfileData();
+    // }
+  }, [fetchProfile]);
 
   const value = {
     Cardid,
@@ -92,6 +99,7 @@ export const ContextProvider = ({ children }) => {
     UserProfileData,
     setUserProfileData,
     FetchuserProfileData,
+    setfetchProfile,
   };
   return <Appcontext.Provider value={value}>{children}</Appcontext.Provider>;
 };
