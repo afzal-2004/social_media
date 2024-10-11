@@ -150,8 +150,8 @@ export const SingIn = () => {
   const navigate = useNavigate();
   const [data, setdata] = useState({
     email: "",
-    Password: "123",
-    MobileNumber: "9520752384",
+    Password: "",
+    MobileNumber: "",
   });
   const handelChange = (e) => {
     e.preventDefault();
