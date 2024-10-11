@@ -145,13 +145,13 @@ export const SignUp = () => {
 };
 
 export const SingIn = () => {
-  const { FetchuserProfileData, setProfileStatus } = useContext(Appcontext);
+  const { FetchuserProfileData, setLocalToken } = useContext(Appcontext);
 
   const navigate = useNavigate();
   const [data, setdata] = useState({
-    email: "Sample@gmail.com",
+    email: "",
     Password: "123",
-    MobileNumber: "",
+    MobileNumber: "9520752384",
   });
   const handelChange = (e) => {
     e.preventDefault();
@@ -164,11 +164,10 @@ export const SingIn = () => {
     await axios
       .post(`${BackendUrl}/memories/SignIn`, data)
       .then(async (res) => {
-        // console.log(res);
         if (res.status === 201) {
           localStorage.setItem("Token", res.data.token);
-          await FetchuserProfileData();
-          setProfileStatus(true);
+          const Token = localStorage.getItem("Token");
+          setLocalToken(Token);
           toast.success("Login", {
             autoClose: 3000,
           });
@@ -182,6 +181,11 @@ export const SingIn = () => {
             navigate("/");
           }, 2000);
         }
+
+        console.log(
+          "Fetch user Profile Fuction called",
+          FetchuserProfileData()
+        );
       })
       .catch((err) => {
         toast.error(`${err.response?.data?.message}`);

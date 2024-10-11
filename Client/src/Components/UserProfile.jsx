@@ -8,11 +8,12 @@ import { MdArrowDropDown } from "react-icons/md";
 import { Appcontext } from "../Context/Appcontext";
 import "./Components.css";
 export const UserProfile = () => {
-  const { UserProfileData, FetchuserProfileData } = useContext(Appcontext);
+  const { UserProfileData, FetchuserProfileData, LocalToken } =
+    useContext(Appcontext);
 
   useEffect(() => {
     FetchuserProfileData();
-  }, []);
+  }, [LocalToken]);
 
   return (
     <>

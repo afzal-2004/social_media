@@ -5,16 +5,10 @@ import "./Components.css";
 import { Appcontext } from "../Context/Appcontext";
 import { useContext } from "react";
 import { UserProfile } from "./UserProfile";
-import { token } from "../assets/constant";
 
 export const Nav = () => {
-  const { openSidenav, setopenSidenav } = useContext(Appcontext);
-  console.log("get  Token saved In Local Storage is ", token);
-  if (!token) {
-    console.log("SignUp Btn");
-  } else {
-    console.log("User Profile ");
-  }
+  const { openSidenav, setopenSidenav, LocalToken } = useContext(Appcontext);
+
   const handlenav = () => {
     setopenSidenav(!openSidenav);
   };
@@ -31,7 +25,7 @@ export const Nav = () => {
             <h1> Memories</h1>
           </Link>
         </div>
-        {!token ? (
+        {!LocalToken ? (
           <Link to={"/signUp"}>
             <button className="SignInAndSignUpbtn">Sign Up</button>
           </Link>

@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { Appcontext } from "./Appcontext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BackendUrl, token } from "../assets/constant";
 import { toast } from "react-toastify";
 
 export const ContextProvider = ({ children }) => {
-  const [fetchProfile, setfetchProfile] = useState(false);
+  const [LocalToken, setLocalToken] = useState(localStorage.getItem("Token"));
+  console.log(" Token Inside My Local Stoarge ", LocalToken);
+
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
@@ -68,18 +70,12 @@ export const ContextProvider = ({ children }) => {
 
         if (res.status === 201) {
           setUserProfileData(res.data);
-          setfetchProfile(true);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  useEffect(() => {
-    // if (fetchProfile) {
-    FetchuserProfileData();
-    // }
-  }, [fetchProfile]);
 
   const value = {
     Cardid,
@@ -99,7 +95,8 @@ export const ContextProvider = ({ children }) => {
     UserProfileData,
     setUserProfileData,
     FetchuserProfileData,
-    setfetchProfile,
+    LocalToken,
+    setLocalToken,
   };
   return <Appcontext.Provider value={value}>{children}</Appcontext.Provider>;
 };
