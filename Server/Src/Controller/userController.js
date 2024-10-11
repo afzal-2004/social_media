@@ -111,10 +111,15 @@ const getSignUpUser = async (req, res) => {
     const Finduser = await user.findById({
       _id: decode.id,
     });
-
-    return res.status(201).json({
-      Finduser,
-    });
+    if (!Finduser) {
+      return res.status(400).json({
+        message: ' Login',
+      });
+    } else {
+      return res.status(201).json({
+        Finduser,
+      });
+    }
   } catch (error) {
     return res.status(400).json({
       error: error,
