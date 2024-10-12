@@ -6,9 +6,8 @@ import { uploadImage } from '../utils/Cloudniary.js';
 //  this Controller For Access All Post  On my Web Page
 const accessitems = async (req, res) => {
   try {
-    post.find({}).then((data) => {
-      res.json(data);
-    });
+    const data = await post.find({});
+    res.json(data);
   } catch (error) {
     console.log(error);
     return res.status(401).json({
@@ -19,7 +18,7 @@ const accessitems = async (req, res) => {
 };
 //  This Controller For  Create An New Post
 const Senddata = async (req, res) => {
-  const { Creator, Title, Message, tags } = req.body;
+  const { Creator, Title, Message } = req.body;
   const File = req.file;
   const Clodniary = await uploadImage(File.path);
   const token = req.headers.authorization.split(' ')[1];

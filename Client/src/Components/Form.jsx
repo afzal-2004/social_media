@@ -42,12 +42,11 @@ export const Form = () => {
 
             await FetchAllMypost();
           })
-          .catch((err) => console.log(err.message));
+          .catch((err) => console.log(err));
         setdata({
           Creator: "",
           Title: "",
           Message: "",
-          tags: "",
         });
         setFile(null);
         toast.success("  Succefully Post Your Data  ");

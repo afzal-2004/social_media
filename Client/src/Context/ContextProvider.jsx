@@ -7,14 +7,13 @@ import { toast } from "react-toastify";
 
 export const ContextProvider = ({ children }) => {
   const [LocalToken, setLocalToken] = useState(localStorage.getItem("Token"));
-  console.log(" Token Inside My Local Stoarge ", LocalToken);
 
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
-    Creator: "",
-    Title: "",
-    Message: " ",
+    Creator: "Afzal",
+    Title: "Go To mumabi",
+    Message: "Hii I am Go To Mumbai",
   });
   const [openSidenav, setopenSidenav] = useState(false);
   const [Postdata, setPostdata] = useState([]);
@@ -63,11 +62,6 @@ export const ContextProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        console.log(
-          "  This is user Profile Details from The Inside Of my FetchUser Function",
-          res.data?.Finduser
-        );
-
         if (res.status === 201) {
           setUserProfileData(res.data);
         }

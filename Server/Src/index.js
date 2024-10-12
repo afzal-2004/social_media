@@ -3,7 +3,13 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import ConnectDb from './Db/index.js';
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://social-media-ten-gamma.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 dotenv.config({
