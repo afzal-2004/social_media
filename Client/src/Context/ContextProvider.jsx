@@ -11,10 +11,12 @@ export const ContextProvider = ({ children }) => {
   const [Cardid, setCardid] = useState(null);
   const [update, setupdate] = useState(false);
   const [data, setdata] = useState({
-    Creator: "",
-    Title: "",
-    Message: "",
+    Creator: "Afzal",
+    Title: "Hii",
+    Message:
+      "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor,",
   });
+
   const [openSidenav, setopenSidenav] = useState(false);
   const [Postdata, setPostdata] = useState([]);
   const [UserProfileData, setUserProfileData] = useState([]);
