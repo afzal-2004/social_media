@@ -29,7 +29,7 @@ const Senddata = async (req, res) => {
     Title,
     Message,
     provided_by: decode.id,
-    avtar: Clodniary.url || '',
+    avtar: cloudinaryResult.secure_url || '',
   });
 
   const Data = await newdata.save();

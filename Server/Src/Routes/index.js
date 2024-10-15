@@ -14,10 +14,10 @@ import {
 } from '../Controller/userController.js';
 import { Auth } from '../Middleware/Auth.js';
 
-import { upload } from '../Middleware/Mullter.js';
+// import { upload } from '../Middleware/Mullter.js';
 const router = Router();
 router.get('/accessdata', accessitems);
-router.post('/senddata', Auth, upload.single('File'), Senddata);
+router.post('/senddata', Auth, Senddata);
 router.delete('/Deletecard/:id', Auth, Deletecard);
 router.put('/updatedata/:id', Auth, Updatecard);
 router.get('/getupdateContact/:id', Auth, getUpdatedContact);
