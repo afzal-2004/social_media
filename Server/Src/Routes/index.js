@@ -14,7 +14,6 @@ import {
 } from '../Controller/userController.js';
 import { Auth } from '../Middleware/Auth.js';
 
-// import { upload } from '../Middleware/Mullter.js';
 const router = Router();
 router.get('/accessdata', accessitems);
 router.post('/senddata', Auth, Senddata);
